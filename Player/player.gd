@@ -7,16 +7,20 @@ class_name Player extends CharacterBody3D
 @export var walk_speed := 120.0
 @export var run_speed := 280.0
 
+@export_group("Combat Settings")
+@export var aiming_ray: AimingRay
+
 const  GRAVITY = -9.81
 
 enum State { IDLE, MOVING, TURNING }
 var state := State.IDLE
 @onready var anim: AnimationPlayer = $PSXModels/AnimationPlayer
 var is_quick_turning := false
+var is_aiming := false
 
 func _ready():
 	anim.playback_default_blend_time = 0.2
-	for nombre in ["Idle/mixamo_com", "Walking/mixamo_com", "Running/mixamo_com", "Walking Backwards/mixamo_com"]:
+	for nombre in ["Idle/mixamo_com", "Walking/mixamo_com", "Running/mixamo_com", "Walking Backwards/mixamo_com", "Pistol Aim/mixamo_com"]:
 		anim.get_animation(nombre).loop_mode = Animation.LOOP_LINEAR
 
 func update_state():
@@ -43,6 +47,9 @@ func update_animation():
 			anim.play("Running/mixamo_com")
 		else:
 			anim.play("Walking/mixamo_com")
+	elif is_aiming:
+		anim.play("Pistol Aim/mixamo_com")
+		
 	else:
 		anim.play("Idle/mixamo_com")
 
@@ -71,20 +78,36 @@ func handle_gravity(delta):
 	else:
 		velocity.y += GRAVITY * delta
 
+func auto_aim():
+	var target = aiming_ray.find_closest_target()
+	
+	if target == null:
+		return
+	
+	var target_position = Vector3(
+		target.global_position.x, self.global_position.y, target.global_position.z)
+	
+	look_at(target_position, Vector3.UP)
+
 func _physics_process(delta: float) -> void:
 	velocity.x = 0
 	velocity.z = 0
+	is_aiming = Input.is_action_pressed("aim")
 	
 	if not is_quick_turning:
-		update_state()
-		match state:
-			State.TURNING:
-				handle_turn(delta)
-			State.MOVING:
-				if Input.is_action_pressed("run"):
-					handle_run(delta)
-				else:
-					handle_walk(delta)
+		if is_aiming:
+			state = State.IDLE
+			handle_turn(delta)
+		else:
+			update_state()
+			match state:
+				State.TURNING:
+					handle_turn(delta)
+				State.MOVING:
+					if Input.is_action_pressed("run"):
+						handle_run(delta)
+					else:
+						handle_walk(delta)
 
 	update_animation()
 	handle_gravity(delta)
@@ -100,3 +123,5 @@ func _unhandled_input(event: InputEvent) -> void:
 		tween.tween_property(self, "rotation:y", target_y_rotation, quick_turn_speed)
 		
 		tween.finished.connect(func(): is_quick_turning = false)
+	if Input.is_action_just_pressed("aim"):
+		auto_aim()
