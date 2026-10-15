@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bkm6fypr31ete"]
+
+[ext_resource type="Script" uid="uid://hmfunc8pw4bf" path="res://Scripts/re_camera.gd" id="1_8ymil"]
+[ext_resource type="Shader" uid="uid://b3dqn2xn0pdjq" path="res://PS1SHADER/psx_post.gdshader" id="2_mhd27"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kddjp"]
+render_priority = 0
+shader = ExtResource("2_mhd27")
+shader_parameter/enable_fog = true
+shader_parameter/fog_color = Color(0, 0, 0, 1)
+shader_parameter/noise_color = Color(0, 0, 0, 1)
+shader_parameter/fog_distance = 100.3200047177
+shader_parameter/fog_fade_range = 50.0
+shader_parameter/enable_noise = true
+shader_parameter/noise_time_fac = 0.10000000149012
+shader_parameter/enable_color_limitation = true
+shader_parameter/color_levels = 32
+shader_parameter/enable_dithering = true
+shader_parameter/dither_strength = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_u5bk5"]
+size = Vector2(2, 2)
+
+[node name="ReCamera" type="Camera3D" unique_id=734178932]
+transform = Transform3D(0.98874706, -0.096601516, 0.114224665, 0.04068412, 0.9084128, 0.41609004, -0.14395806, -0.4067607, 0.90212077, 0, 0, 0)
+script = ExtResource("1_8ymil")
+
+[node name="PostProceso" type="MeshInstance3D" parent="." unique_id=1209890462]
+transform = Transform3D(0.9958465, 7.450581e-09, 0.09104529, -0.0029189289, 0.9994859, 0.03192705, -0.09099848, -0.032060146, 0.99533486, -0.57658625, -1.1480587, 1.2903504)
+material_override = SubResource("ShaderMaterial_kddjp")
+extra_cull_margin = 16000.0
+mesh = SubResource("QuadMesh_u5bk5")
+
+[node name="Trigger" type="Area3D" parent="." unique_id=1968746075]
+collision_layer = 0
+collision_mask = 5
+
+[connection signal="body_entered" from="Trigger" to="." method="_on_trigger_body_entered"]

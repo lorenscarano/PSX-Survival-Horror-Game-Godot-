@@ -4,14 +4,20 @@ class_name Player extends CharacterBody3D
 @export var turn_speed := 180.0
 ## Aca ponemos el tiempo que tarda en segundos para girar rapido.
 @export var quick_turn_speed := 0.25
-@export var walk_speed := 80.0
+@export var walk_speed := 120.0
 @export var run_speed := 280.0
 
 const  GRAVITY = -9.81
 
 enum State { IDLE, MOVING, TURNING }
 var state := State.IDLE
+@onready var anim: AnimationPlayer = $PSXModels/AnimationPlayer
 var is_quick_turning := false
+
+func _ready():
+	anim.playback_default_blend_time = 0.2
+	for nombre in ["Idle/mixamo_com", "Walking/mixamo_com", "Running/mixamo_com", "Walking Backwards/mixamo_com"]:
+		anim.get_animation(nombre).loop_mode = Animation.LOOP_LINEAR
 
 func update_state():
 	var moving_input = Input.is_action_pressed("move_forward") or Input.is_action_pressed("move_backward")
@@ -28,6 +34,17 @@ func update_state():
 		State.TURNING:
 			if not turning_input:
 				state = State.IDLE
+
+func update_animation():
+	if state == State.MOVING and not is_quick_turning:
+		if Input.is_action_pressed("move_backward"):
+			anim.play("Walking Backwards/mixamo_com")
+		elif Input.is_action_pressed("run"):
+			anim.play("Running/mixamo_com")
+		else:
+			anim.play("Walking/mixamo_com")
+	else:
+		anim.play("Idle/mixamo_com")
 
 func handle_turn(delta):
 	var turn_dir = Input.get_axis("turn_left", "turn_right")
@@ -69,6 +86,7 @@ func _physics_process(delta: float) -> void:
 				else:
 					handle_walk(delta)
 
+	update_animation()
 	handle_gravity(delta)
 	move_and_slide()
 	
