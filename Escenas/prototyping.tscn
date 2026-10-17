@@ -1,19 +1,8 @@
 [gd_scene format=3 uid="uid://cybxxuaq8pve0"]
 
-[ext_resource type="Script" uid="uid://blxsq4c2h8j4a" path="res://Player/player.gd" id="1_fpwri"]
-[ext_resource type="Script" uid="uid://ce60wl61rhcac" path="res://Scripts/Combat/weapon_data.gd" id="2_g5c8g"]
-[ext_resource type="Resource" uid="uid://ns6lsxfnwrkg" path="res://Scripts/Combat/Weapons/pistola.tres" id="3_24ett"]
-[ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="4_slopv"]
-[ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="5_fkvyi"]
-[ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="6_e6klb"]
-[ext_resource type="AnimationLibrary" uid="uid://c0phqruwnttf6" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Dying.fbx" id="6_g5c8g"]
-[ext_resource type="AnimationLibrary" uid="uid://bju8vvt1ihuf5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Pistol Aim.fbx" id="7_1imhs"]
-[ext_resource type="AnimationLibrary" uid="uid://dsovtww12tpwh" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Running.fbx" id="8_itca5"]
-[ext_resource type="AnimationLibrary" uid="uid://br2vai0qy1a78" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking.fbx" id="9_x263v"]
-[ext_resource type="AnimationLibrary" uid="uid://dixxytss15yqm" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking Backwards.fbx" id="10_3g0w6"]
+[ext_resource type="PackedScene" uid="uid://dcxy6iv0jt8wg" path="res://Escenas/player.tscn" id="1_8foao"]
 [ext_resource type="PackedScene" uid="uid://38kk0j7woqta" path="res://Escenas/zombie.tscn" id="11_drl7j"]
 [ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="12_xhfdh"]
-[ext_resource type="Script" uid="uid://d3qefmgvam3qd" path="res://Scripts/target.gd" id="13_f3pio"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7tyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -28,12 +17,6 @@ sky = SubResource("Sky_626rt")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kddjp"]
-height = 2.201662
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eratf"]
-albedo_texture = ExtResource("5_fkvyi")
-
 [sub_resource type="BoxMesh" id="BoxMesh_u5bk5"]
 size = Vector3(20, 0.3, 20)
 
@@ -46,10 +29,6 @@ size = Vector3(1.012207, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_krpui"]
 size = Vector3(0.89068604, 1, 2.0322251)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_u5bk5"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u5bk5"]
-
 [node name="Node3D" type="Node3D" unique_id=2027984184]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1616399198]
@@ -60,79 +39,8 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 light_energy = 0.792
 shadow_enabled = true
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=1309790086]
-transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, -0.9999939, -0.00021839142, 2.2395942, -0.049315453)
-collision_layer = 5
-script = ExtResource("1_fpwri")
-weapons = Array[ExtResource("2_g5c8g")]([ExtResource("3_24ett")])
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=16153800]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8494277, 0)
-shape = SubResource("CapsuleShape3D_kddjp")
-
-[node name="PSXModels" parent="Player" unique_id=1772205019 instance=ExtResource("4_slopv")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
-
-[node name="Skeleton3D" parent="Player/PSXModels" index="0" unique_id=1864068320]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5769297, 0)
-bones/0/position = Vector3(1.2553064e-06, 0.36957532, 0.0050999136)
-bones/0/rotation = Quaternion(-1.7054134e-07, 1.0608278e-06, -3.3664153e-05, 1)
-bones/1/position = Vector3(4.814825e-35, 0.03561081, -0.00011963353)
-bones/1/rotation = Quaternion(-0.0016795585, -1.1173831e-06, 3.3662327e-05, 0.9999986)
-bones/2/position = Vector3(-9.315058e-36, 0.041546177, -1.5091929e-12)
-bones/2/rotation = Quaternion(-1.74622e-09, -2.4651903e-32, -4.814825e-35, 1)
-bones/3/position = Vector3(2.686078e-35, 0.047481347, -6.197069e-12)
-bones/3/rotation = Quaternion(-2.1684043e-19, 1.2325952e-32, 0, 1)
-bones/4/position = Vector3(9.0439964e-35, 0.053416517, 1.4203906e-10)
-bones/4/rotation = Quaternion(0.0016797314, 2.4651941e-32, 4.8148323e-35, 0.99999857)
-bones/5/rotation = Quaternion(0, 2.4651903e-32, 0, 1)
-bones/7/rotation = Quaternion(0.53061676, 0.4686659, -0.52606523, 0.47122544)
-bones/8/position = Vector3(9.7939296e-12, 0.041824114, 5.5306193e-10)
-bones/8/rotation = Quaternion(-0.058288492, 0.023605721, -0.0049932012, 0.9980082)
-bones/9/position = Vector3(8.378375e-11, 0.08391497, -1.6177983e-09)
-bones/9/rotation = Quaternion(3.4908123e-07, 0.00016573793, -1.6141712e-07, 1)
-bones/10/position = Vector3(2.717564e-11, 0.11590228, 7.7617474e-10)
-bones/10/rotation = Quaternion(-2.418742e-07, -0.0033344114, -4.2561442e-07, 0.99999446)
-bones/11/position = Vector3(3.78462e-11, 0.032353703, 1.1912449e-10)
-bones/11/rotation = Quaternion(6.416727e-08, -0.0022936463, -8.002099e-08, 0.99999744)
-bones/12/position = Vector3(-1.8616914e-12, 0.0073467568, -8.882423e-12)
-bones/12/rotation = Quaternion(0.050908938, -1.1799193e-07, -0.03457411, 0.99810475)
-bones/13/rotation = Quaternion(0.07380757, 0.008945924, 0.037236392, 0.996537)
-bones/15/rotation = Quaternion(0.5257418, -0.4713273, 0.5309195, 0.46858385)
-bones/16/position = Vector3(-1.0244665e-11, 0.041824114, 5.530174e-10)
-bones/16/rotation = Quaternion(-0.058406577, -0.011918898, -0.0033344207, 0.9982162)
-bones/17/position = Vector3(4.8672837e-12, 0.083890885, -3.6830927e-11)
-bones/17/rotation = Quaternion(-3.2084537e-07, -6.97611e-05, -3.4590306e-07, 1)
-bones/18/position = Vector3(-1.584052e-10, 0.11591297, -2.1436874e-09)
-bones/18/rotation = Quaternion(2.9057065e-07, 0.0019512732, -2.4079057e-07, 0.9999981)
-bones/19/position = Vector3(1.0988262e-10, 0.0342389, 1.7898688e-10)
-bones/19/rotation = Quaternion(4.4722677e-07, -0.002309772, 8.411008e-08, 0.9999974)
-bones/20/position = Vector3(7.2643905e-12, 0.007164428, 2.1020408e-11)
-bones/20/rotation = Quaternion(-0.05358004, -8.127646e-09, 0.04672994, 0.99746954)
-bones/21/rotation = Quaternion(-0.1729854, 0.017044436, -0.006977893, 0.9847522)
-bones/23/rotation = Quaternion(2.8178125e-05, -0.0060307076, 0.999972, -0.0044401325)
-bones/24/position = Vector3(1.651882e-10, 0.16195226, 3.7489877e-12)
-bones/24/rotation = Quaternion(-0.01963148, 0.00025496673, -0.009236738, 0.9997646)
-bones/25/position = Vector3(6.605069e-11, 0.14771427, 3.1406508e-10)
-bones/25/rotation = Quaternion(0.51381624, 0.073305175, -0.022293514, 0.854472)
-bones/26/position = Vector3(-1.0816209e-12, 0.07687297, 1.4441032e-10)
-bones/28/rotation = Quaternion(6.521266e-06, -0.003352154, 0.9999848, 0.0043726377)
-bones/29/position = Vector3(6.850001e-11, 0.16195147, -3.8997625e-13)
-bones/29/rotation = Quaternion(-0.026317215, -0.00027736908, 0.0092373025, 0.99961096)
-bones/30/position = Vector3(5.4040883e-11, 0.1477807, -2.0211047e-10)
-bones/30/rotation = Quaternion(0.5205466, -0.07140939, 0.022081211, 0.8505553)
-bones/31/position = Vector3(-3.739805e-11, 0.077877305, 1.0353621e-09)
-
-[node name="Body" parent="Player/PSXModels/Skeleton3D" index="0" unique_id=1479695549]
-material_override = SubResource("StandardMaterial3D_eratf")
-
-[node name="AnimationPlayer" parent="Player/PSXModels" index="1" unique_id=164006241]
-libraries/Dying = ExtResource("6_g5c8g")
-libraries/Idle = ExtResource("6_e6klb")
-"libraries/Pistol Aim" = ExtResource("7_1imhs")
-libraries/Running = ExtResource("8_itca5")
-libraries/Walking = ExtResource("9_x263v")
-"libraries/Walking Backwards" = ExtResource("10_3g0w6")
+[node name="Player" parent="." unique_id=850172897 instance=ExtResource("1_8foao")]
+transform = Transform3D(-0.9999939, 0, 0.0034908303, 0, 1, 0, -0.0034908303, 0, -0.9999939, -0.00021839142, 2.2395942, -0.049315453)
 
 [node name="Entorno" type="Node3D" parent="." unique_id=1874173877]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
@@ -281,20 +189,9 @@ visible = false
 transform = Transform3D(5.176975, -0.040624455, 3.1849148, 3.0479894, 1.6504914, -3.4203954, -2.2496488, 2.1427207, 2.69504, -0.52383137, 2.1862712, -5.6086187)
 shape = SubResource("BoxShape3D_krpui")
 
-[node name="Target" type="StaticBody3D" parent="." unique_id=1115803985]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.630662, 1.2256849, 0)
-script = ExtResource("13_f3pio")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Target" unique_id=2135702955]
-mesh = SubResource("CapsuleMesh_u5bk5")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Target" unique_id=1549436799]
-shape = SubResource("CapsuleShape3D_u5bk5")
-
 [node name="Zombie" parent="." unique_id=1667762410 instance=ExtResource("11_drl7j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.743235, 1.2447056, 6.831108)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5050473, 1.2361174, -4.5672064)
 
-[editable path="Player/PSXModels"]
 [editable path="Camaras/ReCamera"]
 [editable path="Camaras/ReCamera2"]
 [editable path="Camaras/ReCamera3"]

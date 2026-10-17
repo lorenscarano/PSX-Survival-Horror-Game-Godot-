@@ -50,7 +50,10 @@ func attack() -> void :
 func _physics_process(delta: float) -> void:
 	if state == State.DEAD or player == null or player.is_dead:
 		return
-	
+	if player == null:
+		player = get_tree().get_first_node_in_group("player") as Player
+	if player == null or player.is_dead:
+		return
 	attack_timer = max(attack_timer - delta, 0.0)
 	
 	var to_player = player.global_position - global_position
@@ -65,8 +68,10 @@ func _physics_process(delta: float) -> void:
 		State.CHASE:
 			if distance <= attack_range:
 				state = State.ATTACK
+			elif distance > detection_range * 2.0:
+				state = State.IDLE
 		State.ATTACK:
-			if distance > attack_range:
+			if distance > attack_range * 1.2:
 				state = State.CHASE
 				
 	velocity.x = 0

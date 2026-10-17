@@ -4,6 +4,9 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u5bk5"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_24ett"]
+albedo_color = Color(0.2901961, 0.47843137, 0.22745098, 1)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u5bk5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kddjp"]
@@ -18,5 +21,6 @@ debug_color = Color(0.1566461, 0.645121, 0, 0.41960785)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1074491308]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_24ett")
 mesh = SubResource("CapsuleMesh_u5bk5")
 surface_material_override/0 = SubResource("StandardMaterial3D_kddjp")

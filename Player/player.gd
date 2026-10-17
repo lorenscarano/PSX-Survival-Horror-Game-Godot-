@@ -17,6 +17,7 @@ var is_dead := false
 @export var weapons: Array[WeaponData] = []
 @export var shoot_height := -0.3
 
+
 var current_weapon: WeaponData
 var current_index := 0
 var mag_ammo := {} #Balas en cada cargador, segun el nombre del arma
@@ -33,8 +34,13 @@ var is_reloading := false
 var fire_cooldown := 0.0
 
 @onready var anim: AnimationPlayer = $PSXModels/AnimationPlayer
+@onready var model: Node3D = $PSXModels
+@onready var gun_model: Node3D = $PSXModels/Skeleton3D/BoneAttachment3D/PSX_Colt1911/SM_Colt1911
+var model_base_pos := Vector3.ZERO
 
 func _ready():
+	gun_model.visible = false
+	model_base_pos = model.position
 	health = max_health
 	add_to_group("player")
 	
@@ -55,6 +61,11 @@ func equip_weapon(index: int) -> bool:
 	current_index = index
 	current_weapon = weapons[index]
 	return true
+
+func play_recoil():
+	var t:= create_tween()
+	t.tween_property(model, "position:z", model_base_pos.z - 0.08, 0.04)
+	t.tween_property(model, "position:z", model_base_pos.z, 0.12)
 
 func update_state():
 	var moving_input = Input.is_action_pressed("move_forward") or Input.is_action_pressed("move_backward")
@@ -120,6 +131,7 @@ func handle_shoot():
 		return
 	mag_ammo[current_weapon.nombre] -= 1
 	fire_cooldown = current_weapon.fire_rate
+	play_recoil()
 	for i in current_weapon.pellets:
 		fire_ray()
 		print("Balas: ", mag_ammo[current_weapon.nombre], "/", reserve_ammo.get(current_weapon.ammo_type, 0))
@@ -163,6 +175,7 @@ func handle_reload():
 	is_reloading = false
 	print("Arma recargada. Balas: ", mag_ammo[w.nombre], "/", reserve_ammo[w.ammo_type])
 	
+	
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
@@ -192,6 +205,7 @@ func _physics_process(delta: float) -> void:
 	handle_shoot()
 	handle_reload()
 	update_animation()
+	gun_model.visible = is_aiming
 	handle_gravity(delta)
 	move_and_slide()
 	
