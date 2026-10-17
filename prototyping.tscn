@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cybxxuaq8pve0"]
 
 [ext_resource type="Script" uid="uid://blxsq4c2h8j4a" path="res://Player/player.gd" id="1_v7tyh"]
+[ext_resource type="Script" uid="uid://ce60wl61rhcac" path="res://Scripts/Combat/weapon_data.gd" id="2_6w5po"]
 [ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="2_pgtm1"]
+[ext_resource type="Resource" uid="uid://ns6lsxfnwrkg" path="res://Scripts/Combat/Weapons/pistola.tres" id="3_olbv0"]
 [ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="3_snyu1"]
 [ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="4_snyu1"]
 [ext_resource type="AnimationLibrary" uid="uid://bju8vvt1ihuf5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Pistol Aim.fbx" id="5_626rt"]
@@ -60,6 +62,7 @@ shadow_enabled = true
 transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, -0.9999939, -0.00021839142, 2.2395942, -0.049315453)
 collision_layer = 5
 script = ExtResource("1_v7tyh")
+weapons = Array[ExtResource("2_6w5po")]([ExtResource("3_olbv0")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=16153800]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8494277, 0)
@@ -127,10 +130,6 @@ libraries/Idle = ExtResource("4_snyu1")
 libraries/Running = ExtResource("5_eratf")
 libraries/Walking = ExtResource("6_626rt")
 "libraries/Walking Backwards" = ExtResource("7_o7f6j")
-
-[node name="ShootRay" type="RayCast3D" parent="Player" unique_id=1733196307]
-transform = Transform3D(1.0000001, 0, 0, 0, 1.0000002, 0, 0, 0, 1, -0.1231258, -0.23062849, 0.20598333)
-target_position = Vector3(0, 0, 20)
 
 [node name="Entorno" type="Node3D" parent="." unique_id=1874173877]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)

@@ -8,11 +8,13 @@ class_name Player extends CharacterBody3D
 @export var run_speed := 280.0
 
 @export_group ("Weapon Settings")
-@export var damage := 10
-@export var fire_rate := 0.4 #Aca se puede ajustar la velocidad de disparo
-@export var reload_time := 1.5
-@export var mag_size := 15 #Capacidad del cargador
+@export var weapons: Array[WeaponData] = []
+@export var shoot_height := -0.3
 
+var current_weapon: WeaponData
+var current_index := 0
+var mag_ammo := {} #Balas en cada cargador, segun el nombre del arma
+var reserve_ammo := {"9mm": 30, "escopeta": 8} #balas de cada tipo
 
 const  GRAVITY = -9.81
 
@@ -22,18 +24,27 @@ var is_quick_turning := false
 var is_aiming := false
 var is_reloading := false
 var fire_cooldown := 0.0
-var ammo_in_mag := 15
-var reserve_ammo := 30 #Municion fuera del cargador
 
 @onready var anim: AnimationPlayer = $PSXModels/AnimationPlayer
-@onready var shoot_ray: RayCast3D = $ShootRay
-
 
 func _ready():
-	ammo_in_mag = mag_size
 	anim.playback_default_blend_time = 0.2
-	for nombre in ["Idle/mixamo_com", "Walking/mixamo_com", "Running/mixamo_com", "Walking Backwards/mixamo_com", "Pistol Aim/mixamo_com"]:
+	for w in weapons:
+		mag_ammo[w.nombre] = w.mag_size
+		anim.get_animation(w.aim_animation).loop_mode = Animation.LOOP_LINEAR
+	if weapons.size() > 0:
+		equip_weapon(0)
+	for nombre in ["Idle/mixamo_com", "Walking/mixamo_com", "Running/mixamo_com", "Walking Backwards/mixamo_com"]:
 		anim.get_animation(nombre).loop_mode = Animation.LOOP_LINEAR
+
+func equip_weapon(index: int) -> bool:
+	if is_aiming or is_reloading or is_quick_turning:
+		return false
+	if index < 0 or index >= weapons.size():
+		return false
+	current_index = index
+	current_weapon = weapons[index]
+	return true
 
 func update_state():
 	var moving_input = Input.is_action_pressed("move_forward") or Input.is_action_pressed("move_backward")
@@ -53,8 +64,7 @@ func update_state():
 
 func update_animation():
 	if is_aiming:
-		anim.play("Pistol Aim/mixamo_com")
-		
+		anim.play(current_weapon.aim_animation)
 	elif state == State.MOVING and not is_quick_turning:
 		if Input.is_action_pressed("move_backward"):
 			anim.play("Walking Backwards/mixamo_com")
@@ -95,35 +105,57 @@ func handle_shoot():
 		return
 	if not Input.is_action_just_pressed("shoot"):
 		return
-	if ammo_in_mag <= 0:
+	if mag_ammo[current_weapon.nombre] <=0:
 		print("No hay mas balas en el cargador")
 		return
-	ammo_in_mag -= 1
-	fire_cooldown = fire_rate
-	
-	shoot_ray.force_raycast_update()
-	if shoot_ray.is_colliding():
-		var target = shoot_ray.get_collider()
-		if target.has_method("take_damage"):
-			target.take_damage(damage)
-	print("Balas: ", ammo_in_mag, "/", reserve_ammo)
-			
+	mag_ammo[current_weapon.nombre] -= 1
+	fire_cooldown = current_weapon.fire_rate
+	for i in current_weapon.pellets:
+		fire_ray()
+		print("Balas: ", mag_ammo[current_weapon.nombre], "/", reserve_ammo.get(current_weapon.ammo_type, 0))
+
+func fire_ray():
+	var dir = global_transform.basis.z
+	if current_weapon.spread_degrees > 0.0:
+		var s = deg_to_rad(current_weapon.spread_degrees)
+		dir = dir.rotated(Vector3.UP, randf_range(-s,s))
+		dir = dir.rotated(global_transform.basis.x, randf_range(-s,s)).normalized()
+	var from = global_position + Vector3(0,shoot_height,0)
+	var to = from + dir * current_weapon.max_range
+	var query = PhysicsRayQueryParameters3D.create(from,to)
+	query.exclude = [self]
+	var result = get_world_3d().direct_space_state.intersect_ray(query)
+	if result and result.collider.has_method("take_damage"):
+		result.collider.take_damage(current_weapon.damage)
+	print("Desde: ",from, " | Hacia: ", to)
+	if result:
+		print("Choque con: ",result.collider.name, " en ", result.position)
+		var marca := MeshInstance3D.new()
+		marca.mesh = SphereMesh.new()
+		marca.scale = Vector3.ONE * 0.2
+		get_tree().current_scene.add_child(marca)
+		marca.global_position = result.position
+		get_tree().create_timer(2.0).timeout.connect(marca.queue_free)
+	else:
+		print("No choque")
+
 func handle_reload():
-		if is_reloading or is_aiming or is_quick_turning:
-			return
-		if not Input.is_action_just_pressed("reload"):
-			return
-		if ammo_in_mag >= mag_size or reserve_ammo <= 0:
-			return
-			
-		is_reloading = true
-		await  get_tree().create_timer(reload_time).timeout
-		var needed = mag_size - ammo_in_mag
-		var taken = min(needed,reserve_ammo)
-		ammo_in_mag += taken
-		reserve_ammo -= taken
-		is_reloading = false
-		print("Arma Recargada. Balas: ", ammo_in_mag, "/", reserve_ammo)
+	if current_weapon == null or is_reloading or is_quick_turning or is_aiming:
+		return
+	if not Input.is_action_just_pressed("reload"):
+		return
+	var w = current_weapon
+	var reserve = reserve_ammo.get(w.ammo_type, 0)
+	if mag_ammo[w.nombre] >= w.mag_size or reserve <=0 :
+		return
+	
+	is_reloading =true
+	await get_tree().create_timer(w.reload_time).timeout
+	var taken = min(w.mag_size - mag_ammo[w.nombre], reserve)
+	mag_ammo[w.nombre] += taken
+	reserve_ammo[w.ammo_type] = reserve - taken
+	is_reloading = false
+	print("Arma recargada. Balas: ", mag_ammo[w.nombre], "/", reserve_ammo[w.ammo_type])
 	
 func _physics_process(delta: float) -> void:
 	velocity.x = 0
