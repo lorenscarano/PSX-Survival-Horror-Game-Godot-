@@ -9,6 +9,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://br2vai0qy1a78" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking.fbx" id="6_626rt"]
 [ext_resource type="AnimationLibrary" uid="uid://dixxytss15yqm" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking Backwards.fbx" id="7_o7f6j"]
 [ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="8_eratf"]
+[ext_resource type="Script" uid="uid://d3qefmgvam3qd" path="res://Scripts/target.gd" id="10_o7f6j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7tyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -40,6 +41,10 @@ size = Vector3(1.012207, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_krpui"]
 size = Vector3(0.89068604, 1, 2.0322251)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_u5bk5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u5bk5"]
 
 [node name="Node3D" type="Node3D" unique_id=2027984184]
 
@@ -122,6 +127,10 @@ libraries/Idle = ExtResource("4_snyu1")
 libraries/Running = ExtResource("5_eratf")
 libraries/Walking = ExtResource("6_626rt")
 "libraries/Walking Backwards" = ExtResource("7_o7f6j")
+
+[node name="ShootRay" type="RayCast3D" parent="Player" unique_id=1733196307]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000002, 0, 0, 0, 1, -0.1231258, -0.23062849, 0.20598333)
+target_position = Vector3(0, 0, 20)
 
 [node name="Entorno" type="Node3D" parent="." unique_id=1874173877]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
@@ -269,6 +278,16 @@ visible = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera4/Trigger" parent_id_path=PackedInt32Array(699770985, 1968746075) index="0" unique_id=44525967]
 transform = Transform3D(5.176975, -0.040624455, 3.1849148, 3.0479894, 1.6504914, -3.4203954, -2.2496488, 2.1427207, 2.69504, -0.52383137, 2.1862712, -5.6086187)
 shape = SubResource("BoxShape3D_krpui")
+
+[node name="Target" type="StaticBody3D" parent="." unique_id=1115803985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.630662, 1.2256849, 0)
+script = ExtResource("10_o7f6j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Target" unique_id=2135702955]
+mesh = SubResource("CapsuleMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Target" unique_id=1549436799]
+shape = SubResource("CapsuleShape3D_u5bk5")
 
 [editable path="Player/PSXModels"]
 [editable path="Camaras/ReCamera"]
