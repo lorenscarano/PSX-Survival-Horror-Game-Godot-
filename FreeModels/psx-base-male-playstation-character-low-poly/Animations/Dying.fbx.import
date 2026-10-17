@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="animation_library"
 importer_version=1
-type="PackedScene"
+type="AnimationLibrary"
 uid="uid://c0phqruwnttf6"
-path="res://.godot/imported/Dying.fbx-1d63efdab4dd0de9d81947e7d54e3bc8.scn"
+path="res://.godot/imported/Dying.fbx-1d63efdab4dd0de9d81947e7d54e3bc8.res"
 
 [deps]
 
 source_file="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Dying.fbx"
-dest_files=["res://.godot/imported/Dying.fbx-1d63efdab4dd0de9d81947e7d54e3bc8.scn"]
+dest_files=["res://.godot/imported/Dying.fbx-1d63efdab4dd0de9d81947e7d54e3bc8.res"]
 
 [params]
 

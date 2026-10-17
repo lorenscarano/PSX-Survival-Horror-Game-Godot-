@@ -2,10 +2,16 @@ class_name Player extends CharacterBody3D
 
 @export_group("Movement Settings")
 @export var turn_speed := 180.0
-## Aca ponemos el tiempo que tarda en segundos para girar rapido.
+## Aca poner el tiempo que tarda (en segundos) para girar rapido.
 @export var quick_turn_speed := 0.25
 @export var walk_speed := 120.0
 @export var run_speed := 280.0
+
+@export_group("Health")
+@export var max_health := 100
+
+var health := 0 
+var is_dead := false
 
 @export_group ("Weapon Settings")
 @export var weapons: Array[WeaponData] = []
@@ -17,6 +23,7 @@ var mag_ammo := {} #Balas en cada cargador, segun el nombre del arma
 var reserve_ammo := {"9mm": 30, "escopeta": 8} #balas de cada tipo
 
 const  GRAVITY = -9.81
+const DEATH_ANIM := "Dying/mixamo_com"
 
 enum State { IDLE, MOVING, TURNING }
 var state := State.IDLE
@@ -28,6 +35,9 @@ var fire_cooldown := 0.0
 @onready var anim: AnimationPlayer = $PSXModels/AnimationPlayer
 
 func _ready():
+	health = max_health
+	add_to_group("player")
+	
 	anim.playback_default_blend_time = 0.2
 	for w in weapons:
 		mag_ammo[w.nombre] = w.mag_size
@@ -127,17 +137,13 @@ func fire_ray():
 	var result = get_world_3d().direct_space_state.intersect_ray(query)
 	if result and result.collider.has_method("take_damage"):
 		result.collider.take_damage(current_weapon.damage)
-	print("Desde: ",from, " | Hacia: ", to)
 	if result:
-		print("Choque con: ",result.collider.name, " en ", result.position)
 		var marca := MeshInstance3D.new()
 		marca.mesh = SphereMesh.new()
 		marca.scale = Vector3.ONE * 0.2
 		get_tree().current_scene.add_child(marca)
 		marca.global_position = result.position
 		get_tree().create_timer(2.0).timeout.connect(marca.queue_free)
-	else:
-		print("No choque")
 
 func handle_reload():
 	if current_weapon == null or is_reloading or is_quick_turning or is_aiming:
@@ -158,6 +164,9 @@ func handle_reload():
 	print("Arma recargada. Balas: ", mag_ammo[w.nombre], "/", reserve_ammo[w.ammo_type])
 	
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
+	
 	velocity.x = 0
 	velocity.z = 0
 	fire_cooldown = max(fire_cooldown - delta, 0.0)
@@ -188,6 +197,8 @@ func _physics_process(delta: float) -> void:
 	
 
 func _unhandled_input(_event: InputEvent) -> void:
+	if is_dead:
+		return
 	if Input.is_action_just_pressed("quick_turn") and not is_quick_turning:
 		is_quick_turning = true
 		var target_y_rotation = rotation.y + PI
@@ -196,3 +207,24 @@ func _unhandled_input(_event: InputEvent) -> void:
 		tween.tween_property(self, "rotation:y", target_y_rotation, quick_turn_speed)
 		
 		tween.finished.connect(func(): is_quick_turning = false)
+
+
+## Funciones de daño y muerte
+
+func take_damage(amount: int) -> void:
+	if is_dead:
+		return
+	health -= amount
+	print("Vida del PJ: ", health)
+	if health <= 0:
+		die()
+		
+func die() -> void:
+	is_dead = true
+	is_aiming = false
+	velocity = Vector3.ZERO
+	print("Moriste mantecaaaAAAaa")
+	anim.play(DEATH_ANIM)
+	await anim.animation_finished
+	await get_tree().create_timer(2.0).timeout
+	get_tree().reload_current_scene()

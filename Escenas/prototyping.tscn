@@ -1,17 +1,19 @@
 [gd_scene format=3 uid="uid://cybxxuaq8pve0"]
 
-[ext_resource type="Script" uid="uid://blxsq4c2h8j4a" path="res://Player/player.gd" id="1_v7tyh"]
-[ext_resource type="Script" uid="uid://ce60wl61rhcac" path="res://Scripts/Combat/weapon_data.gd" id="2_6w5po"]
-[ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="2_pgtm1"]
-[ext_resource type="Resource" uid="uid://ns6lsxfnwrkg" path="res://Scripts/Combat/Weapons/pistola.tres" id="3_olbv0"]
-[ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="3_snyu1"]
-[ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="4_snyu1"]
-[ext_resource type="AnimationLibrary" uid="uid://bju8vvt1ihuf5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Pistol Aim.fbx" id="5_626rt"]
-[ext_resource type="AnimationLibrary" uid="uid://dsovtww12tpwh" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Running.fbx" id="5_eratf"]
-[ext_resource type="AnimationLibrary" uid="uid://br2vai0qy1a78" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking.fbx" id="6_626rt"]
-[ext_resource type="AnimationLibrary" uid="uid://dixxytss15yqm" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking Backwards.fbx" id="7_o7f6j"]
-[ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="8_eratf"]
-[ext_resource type="Script" uid="uid://d3qefmgvam3qd" path="res://Scripts/target.gd" id="10_o7f6j"]
+[ext_resource type="Script" uid="uid://blxsq4c2h8j4a" path="res://Player/player.gd" id="1_fpwri"]
+[ext_resource type="Script" uid="uid://ce60wl61rhcac" path="res://Scripts/Combat/weapon_data.gd" id="2_g5c8g"]
+[ext_resource type="Resource" uid="uid://ns6lsxfnwrkg" path="res://Scripts/Combat/Weapons/pistola.tres" id="3_24ett"]
+[ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="4_slopv"]
+[ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="5_fkvyi"]
+[ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="6_e6klb"]
+[ext_resource type="AnimationLibrary" uid="uid://c0phqruwnttf6" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Dying.fbx" id="6_g5c8g"]
+[ext_resource type="AnimationLibrary" uid="uid://bju8vvt1ihuf5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Pistol Aim.fbx" id="7_1imhs"]
+[ext_resource type="AnimationLibrary" uid="uid://dsovtww12tpwh" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Running.fbx" id="8_itca5"]
+[ext_resource type="AnimationLibrary" uid="uid://br2vai0qy1a78" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking.fbx" id="9_x263v"]
+[ext_resource type="AnimationLibrary" uid="uid://dixxytss15yqm" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking Backwards.fbx" id="10_3g0w6"]
+[ext_resource type="PackedScene" uid="uid://38kk0j7woqta" path="res://Escenas/zombie.tscn" id="11_drl7j"]
+[ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="12_xhfdh"]
+[ext_resource type="Script" uid="uid://d3qefmgvam3qd" path="res://Scripts/target.gd" id="13_f3pio"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7tyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -30,7 +32,7 @@ glow_enabled = true
 height = 2.201662
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eratf"]
-albedo_texture = ExtResource("3_snyu1")
+albedo_texture = ExtResource("5_fkvyi")
 
 [sub_resource type="BoxMesh" id="BoxMesh_u5bk5"]
 size = Vector3(20, 0.3, 20)
@@ -61,14 +63,14 @@ shadow_enabled = true
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1309790086]
 transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, -0.9999939, -0.00021839142, 2.2395942, -0.049315453)
 collision_layer = 5
-script = ExtResource("1_v7tyh")
-weapons = Array[ExtResource("2_6w5po")]([ExtResource("3_olbv0")])
+script = ExtResource("1_fpwri")
+weapons = Array[ExtResource("2_g5c8g")]([ExtResource("3_24ett")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=16153800]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8494277, 0)
 shape = SubResource("CapsuleShape3D_kddjp")
 
-[node name="PSXModels" parent="Player" unique_id=1772205019 instance=ExtResource("2_pgtm1")]
+[node name="PSXModels" parent="Player" unique_id=1772205019 instance=ExtResource("4_slopv")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Player/PSXModels" index="0" unique_id=1864068320]
@@ -125,11 +127,12 @@ bones/31/position = Vector3(-3.739805e-11, 0.077877305, 1.0353621e-09)
 material_override = SubResource("StandardMaterial3D_eratf")
 
 [node name="AnimationPlayer" parent="Player/PSXModels" index="1" unique_id=164006241]
-libraries/Idle = ExtResource("4_snyu1")
-"libraries/Pistol Aim" = ExtResource("5_626rt")
-libraries/Running = ExtResource("5_eratf")
-libraries/Walking = ExtResource("6_626rt")
-"libraries/Walking Backwards" = ExtResource("7_o7f6j")
+libraries/Dying = ExtResource("6_g5c8g")
+libraries/Idle = ExtResource("6_e6klb")
+"libraries/Pistol Aim" = ExtResource("7_1imhs")
+libraries/Running = ExtResource("8_itca5")
+libraries/Walking = ExtResource("9_x263v")
+"libraries/Walking Backwards" = ExtResource("10_3g0w6")
 
 [node name="Entorno" type="Node3D" parent="." unique_id=1874173877]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
@@ -234,7 +237,7 @@ shape = SubResource("BoxShape3D_kddjp")
 [node name="Camaras" type="Node3D" parent="." unique_id=231828619]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
 
-[node name="ReCamera" parent="Camaras" unique_id=734178932 groups=["camera"] instance=ExtResource("8_eratf")]
+[node name="ReCamera" parent="Camaras" unique_id=734178932 groups=["camera"] instance=ExtResource("12_xhfdh")]
 transform = Transform3D(0.9887472, -0.096601516, 0.114224665, 0.0020923729, 0.7724071, 0.6351244, -0.14958191, -0.6277384, 0.76391745, 0, 3.7706578, 9.749409)
 
 [node name="PostProceso" parent="Camaras/ReCamera" index="0" unique_id=1209890462]
@@ -245,7 +248,7 @@ transform = Transform3D(12.106656, 0.5669418, 5.1409006e-07, -1.2611892, 2.10901
 shape = SubResource("BoxShape3D_0ru8o")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="ReCamera2" parent="Camaras" unique_id=1943313953 groups=["camera"] instance=ExtResource("8_eratf")]
+[node name="ReCamera2" parent="Camaras" unique_id=1943313953 groups=["camera"] instance=ExtResource("12_xhfdh")]
 transform = Transform3D(0.9077033, 0.2875029, -0.30564168, -0.07778611, 0.8310552, 0.5507237, 0.41233978, -0.47611898, 0.77671534, 4.946356, 3.5419035, 8.49909)
 far = 4007.85
 
@@ -256,7 +259,7 @@ visible = false
 transform = Transform3D(5.855634, -0.26225, 3.499111, 1.8498372, 2.274615, -4.039396, -1.855228, 1.440269, 7.0165443, -2.282249, 2.3631213, -8.076397)
 shape = SubResource("BoxShape3D_krpui")
 
-[node name="ReCamera3" parent="Camaras" unique_id=232857646 groups=["camera"] instance=ExtResource("8_eratf")]
+[node name="ReCamera3" parent="Camaras" unique_id=232857646 groups=["camera"] instance=ExtResource("12_xhfdh")]
 transform = Transform3D(0.15434076, -0.7654919, 0.62466085, -0.03237633, 0.6279785, 0.77755696, -0.9874871, -0.14023298, 0.07213886, 1.8468819, 4.99518, -6.891619)
 far = 4007.85
 
@@ -267,7 +270,7 @@ visible = false
 transform = Transform3D(6.3572865, -0.060249563, 0.79585046, 0.7568613, 1.6528199, -4.7201176, -0.40548795, 2.1404755, 3.6671576, -0.23073435, 1.8891459, -5.336462)
 shape = SubResource("BoxShape3D_krpui")
 
-[node name="ReCamera4" parent="Camaras" unique_id=699770985 groups=["camera"] instance=ExtResource("8_eratf")]
+[node name="ReCamera4" parent="Camaras" unique_id=699770985 groups=["camera"] instance=ExtResource("12_xhfdh")]
 transform = Transform3D(-0.7970228, -0.48564354, 0.35903355, -0.03237634, 0.62797856, 0.77755696, -0.60308087, 0.60810643, -0.51623654, -4.7398577, 4.99518, -4.280911)
 far = 4007.85
 
@@ -280,13 +283,16 @@ shape = SubResource("BoxShape3D_krpui")
 
 [node name="Target" type="StaticBody3D" parent="." unique_id=1115803985]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.630662, 1.2256849, 0)
-script = ExtResource("10_o7f6j")
+script = ExtResource("13_f3pio")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Target" unique_id=2135702955]
 mesh = SubResource("CapsuleMesh_u5bk5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Target" unique_id=1549436799]
 shape = SubResource("CapsuleShape3D_u5bk5")
+
+[node name="Zombie" parent="." unique_id=1667762410 instance=ExtResource("11_drl7j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.743235, 1.2447056, 6.831108)
 
 [editable path="Player/PSXModels"]
 [editable path="Camaras/ReCamera"]
