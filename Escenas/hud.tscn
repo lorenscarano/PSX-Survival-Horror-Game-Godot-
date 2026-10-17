@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://d0b2ubpl0q8qd"]
+
+[node name="HUD" type="CanvasLayer" unique_id=11680840]
+
+[node name="HealthLabel" type="Label" parent="." unique_id=943021560]
+offset_left = 8.96
+offset_top = 8.03
+offset_right = 48.96
+offset_bottom = 31.029999
+theme_override_font_sizes/font_size = 24
+
+[node name="AmmoLabel" type="Label" parent="." unique_id=290761783]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -59.795044
+offset_top = 12.04
+offset_right = -19.795044
+offset_bottom = 35.04
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2

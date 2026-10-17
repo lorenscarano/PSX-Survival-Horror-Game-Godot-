@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cybxxuaq8pve0"]
 
 [ext_resource type="PackedScene" uid="uid://dcxy6iv0jt8wg" path="res://Escenas/player.tscn" id="1_8foao"]
+[ext_resource type="PackedScene" uid="uid://d0b2ubpl0q8qd" path="res://Escenas/hud.tscn" id="4_p5xsa"]
+[ext_resource type="Script" uid="uid://cj5lp8cjpdqq6" path="res://Escenas/hud.gd" id="5_rn7uw"]
 [ext_resource type="PackedScene" uid="uid://38kk0j7woqta" path="res://Escenas/zombie.tscn" id="11_drl7j"]
 [ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="12_xhfdh"]
 
@@ -191,6 +193,9 @@ shape = SubResource("BoxShape3D_krpui")
 
 [node name="Zombie" parent="." unique_id=1667762410 instance=ExtResource("11_drl7j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5050473, 1.2361174, -4.5672064)
+
+[node name="HUD" parent="." unique_id=11680840 instance=ExtResource("4_p5xsa")]
+script = ExtResource("5_rn7uw")
 
 [editable path="Camaras/ReCamera"]
 [editable path="Camaras/ReCamera2"]

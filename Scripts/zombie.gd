@@ -9,6 +9,11 @@ enum State {IDLE, CHASE, ATTACK, DEAD}
 @export var attack_range := 1.3
 @export var attack_damage := 15
 @export var attack_cooldown := 1.2
+@export var eye_height := -0.1
+@export var lose_interest_time := 2.0
+
+var lost_sight_timer := 0.0
+var last_know_pos := Vector3.ZERO
 
 const GRAVITY = -9.81
 
@@ -16,6 +21,15 @@ var state := State.IDLE
 var health := 0
 var attack_timer := 0.0
 var player: Player
+
+func can_see_player() -> bool:
+	var offset = Vector3(0, eye_height,0)
+	var from = global_position + offset
+	var to = player.global_position + offset
+	var query = PhysicsRayQueryParameters3D.create(from,to)
+	query.exclude = [self]
+	var result = get_world_3d().direct_space_state.intersect_ray(query)
+	return result and result.collider == player
 
 func _ready() -> void:
 	health = max_health
@@ -63,25 +77,42 @@ func _physics_process(delta: float) -> void:
 	
 	match state:
 		State.IDLE:
-			if distance <= detection_range:
+			if distance <= detection_range and can_see_player():
+				last_know_pos = player.global_position
+				lost_sight_timer = 0.0
 				state = State.CHASE
 		State.CHASE:
 			if distance <= attack_range:
 				state = State.ATTACK
-			elif distance > detection_range * 2.0:
-				state = State.IDLE
+			elif can_see_player():
+				last_know_pos = player.global_position
+				lost_sight_timer = 0.0
+			else:
+				lost_sight_timer += delta
+				if lost_sight_timer >= lose_interest_time:
+					state = State.IDLE
 		State.ATTACK:
 			if distance > attack_range * 1.2:
 				state = State.CHASE
 				
 	velocity.x = 0
 	velocity.z = 0
+	
+	var move_dir = dir
+	
+	if state == State.CHASE and lost_sight_timer > 0.0:
+		var to_last = last_know_pos - global_position
+		to_last.y = 0
+		move_dir = to_last.normalized() if to_last.length() > 0.4 else Vector3.ZERO
+	
 	if state == State.CHASE:
-		velocity.x = dir.x * move_speed
-		velocity.z = dir.z * move_speed
-	if state == State.CHASE or state == State.ATTACK:
+		velocity.x = move_dir.x * move_speed
+		velocity.z = move_dir.z * move_speed
+	if state == State.CHASE:
 		face(dir, delta)
-	if state == State.ATTACK and attack_timer <= 0.0:
+	elif state == State.ATTACK:
+		face(move_dir,delta)
+	if state == State.ATTACK and attack_timer <= 0.0 and can_see_player():
 		attack()
 		
 	if is_on_floor():
