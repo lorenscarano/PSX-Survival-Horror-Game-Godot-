@@ -1,0 +1,272 @@
+[gd_scene format=3 uid="uid://cybxxuaq8pve0"]
+
+[ext_resource type="Script" uid="uid://blxsq4c2h8j4a" path="res://Player/player.gd" id="1_v7tyh"]
+[ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="2_pgtm1"]
+[ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="3_snyu1"]
+[ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="4_snyu1"]
+[ext_resource type="AnimationLibrary" uid="uid://bju8vvt1ihuf5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Pistol Aim.fbx" id="5_626rt"]
+[ext_resource type="AnimationLibrary" uid="uid://dsovtww12tpwh" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Running.fbx" id="5_eratf"]
+[ext_resource type="AnimationLibrary" uid="uid://br2vai0qy1a78" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking.fbx" id="6_626rt"]
+[ext_resource type="AnimationLibrary" uid="uid://dixxytss15yqm" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking Backwards.fbx" id="7_o7f6j"]
+[ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="8_eratf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7tyh"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_o7f6j"]
+sky_material = SubResource("ProceduralSkyMaterial_v7tyh")
+
+[sub_resource type="Environment" id="Environment_cxwu1"]
+background_mode = 2
+sky = SubResource("Sky_o7f6j")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kddjp"]
+height = 2.201662
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eratf"]
+albedo_texture = ExtResource("3_snyu1")
+
+[sub_resource type="GDScript" id="GDScript_626rt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u5bk5"]
+size = Vector3(20, 0.3, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kddjp"]
+size = Vector3(20, 0.3, 17.699707)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ru8o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_krpui"]
+size = Vector3(0.7763672, 1, 1)
+
+[node name="Node3D" type="Node3D" unique_id=2027984184]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1616399198]
+environment = SubResource("Environment_cxwu1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1294570509]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 4.706087, 2.0418892, -0.049315453)
+light_energy = 0.792
+shadow_enabled = true
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1309790086]
+transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, -0.9999939, -0.00021839142, 2.2395942, -0.049315453)
+collision_layer = 5
+script = ExtResource("1_v7tyh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=16153800]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8494277, 0)
+shape = SubResource("CapsuleShape3D_kddjp")
+
+[node name="PSXModels" parent="Player" unique_id=1772205019 instance=ExtResource("2_pgtm1")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Player/PSXModels" index="0" unique_id=1864068320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5769297, 0)
+bones/0/position = Vector3(1.2553064e-06, 0.36957532, 0.0050999136)
+bones/0/rotation = Quaternion(-1.7054134e-07, 1.0608278e-06, -3.3664153e-05, 1)
+bones/1/position = Vector3(4.814825e-35, 0.03561081, -0.00011963353)
+bones/1/rotation = Quaternion(-0.0016795585, -1.1173831e-06, 3.3662327e-05, 0.9999986)
+bones/2/position = Vector3(-9.315058e-36, 0.041546177, -1.5091929e-12)
+bones/2/rotation = Quaternion(-1.74622e-09, -2.4651903e-32, -4.814825e-35, 1)
+bones/3/position = Vector3(2.686078e-35, 0.047481347, -6.197069e-12)
+bones/3/rotation = Quaternion(-2.1684043e-19, 1.2325952e-32, 0, 1)
+bones/4/position = Vector3(9.0439964e-35, 0.053416517, 1.4203906e-10)
+bones/4/rotation = Quaternion(0.0016797314, 2.4651941e-32, 4.8148323e-35, 0.99999857)
+bones/5/rotation = Quaternion(0, 2.4651903e-32, 0, 1)
+bones/7/rotation = Quaternion(0.53061676, 0.4686659, -0.52606523, 0.47122544)
+bones/8/position = Vector3(9.7939296e-12, 0.041824114, 5.5306193e-10)
+bones/8/rotation = Quaternion(-0.058288492, 0.023605721, -0.0049932012, 0.9980082)
+bones/9/position = Vector3(8.378375e-11, 0.08391497, -1.6177983e-09)
+bones/9/rotation = Quaternion(3.4908123e-07, 0.00016573793, -1.6141712e-07, 1)
+bones/10/position = Vector3(2.717564e-11, 0.11590228, 7.7617474e-10)
+bones/10/rotation = Quaternion(-2.418742e-07, -0.0033344114, -4.2561442e-07, 0.99999446)
+bones/11/position = Vector3(3.78462e-11, 0.032353703, 1.1912449e-10)
+bones/11/rotation = Quaternion(6.416727e-08, -0.0022936463, -8.002099e-08, 0.99999744)
+bones/12/position = Vector3(-1.8616914e-12, 0.0073467568, -8.882423e-12)
+bones/12/rotation = Quaternion(0.050908938, -1.1799193e-07, -0.03457411, 0.99810475)
+bones/13/rotation = Quaternion(0.07380757, 0.008945924, 0.037236392, 0.996537)
+bones/15/rotation = Quaternion(0.5257418, -0.4713273, 0.5309195, 0.46858385)
+bones/16/position = Vector3(-1.0244665e-11, 0.041824114, 5.530174e-10)
+bones/16/rotation = Quaternion(-0.058406577, -0.011918898, -0.0033344207, 0.9982162)
+bones/17/position = Vector3(4.8672837e-12, 0.083890885, -3.6830927e-11)
+bones/17/rotation = Quaternion(-3.2084537e-07, -6.97611e-05, -3.4590306e-07, 1)
+bones/18/position = Vector3(-1.584052e-10, 0.11591297, -2.1436874e-09)
+bones/18/rotation = Quaternion(2.9057065e-07, 0.0019512732, -2.4079057e-07, 0.9999981)
+bones/19/position = Vector3(1.0988262e-10, 0.0342389, 1.7898688e-10)
+bones/19/rotation = Quaternion(4.4722677e-07, -0.002309772, 8.411008e-08, 0.9999974)
+bones/20/position = Vector3(7.2643905e-12, 0.007164428, 2.1020408e-11)
+bones/20/rotation = Quaternion(-0.05358004, -8.127646e-09, 0.04672994, 0.99746954)
+bones/21/rotation = Quaternion(-0.1729854, 0.017044436, -0.006977893, 0.9847522)
+bones/23/rotation = Quaternion(2.8178125e-05, -0.0060307076, 0.999972, -0.0044401325)
+bones/24/position = Vector3(1.651882e-10, 0.16195226, 3.7489877e-12)
+bones/24/rotation = Quaternion(-0.01963148, 0.00025496673, -0.009236738, 0.9997646)
+bones/25/position = Vector3(6.605069e-11, 0.14771427, 3.1406508e-10)
+bones/25/rotation = Quaternion(0.51381624, 0.073305175, -0.022293514, 0.854472)
+bones/26/position = Vector3(-1.0816209e-12, 0.07687297, 1.4441032e-10)
+bones/28/rotation = Quaternion(6.521266e-06, -0.003352154, 0.9999848, 0.0043726377)
+bones/29/position = Vector3(6.850001e-11, 0.16195147, -3.8997625e-13)
+bones/29/rotation = Quaternion(-0.026317215, -0.00027736908, 0.0092373025, 0.99961096)
+bones/30/position = Vector3(5.4040883e-11, 0.1477807, -2.0211047e-10)
+bones/30/rotation = Quaternion(0.5205466, -0.07140939, 0.022081211, 0.8505553)
+bones/31/position = Vector3(-3.739805e-11, 0.077877305, 1.0353621e-09)
+
+[node name="Body" parent="Player/PSXModels/Skeleton3D" index="0" unique_id=1479695549]
+material_override = SubResource("StandardMaterial3D_eratf")
+
+[node name="AnimationPlayer" parent="Player/PSXModels" index="1" unique_id=164006241]
+libraries/Idle = ExtResource("4_snyu1")
+"libraries/Pistol Aim" = ExtResource("5_626rt")
+libraries/Running = ExtResource("5_eratf")
+libraries/Walking = ExtResource("6_626rt")
+"libraries/Walking Backwards" = ExtResource("7_o7f6j")
+
+[node name="AimingRay" type="RayCast3D" parent="Player" unique_id=1693093418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0003971883, -0.7003722, 0.11378183)
+target_position = Vector3(0, -1, -10)
+collide_with_areas = true
+script = SubResource("GDScript_626rt")
+
+[node name="Entorno" type="Node3D" parent="." unique_id=1874173877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
+
+[node name="Suelo" type="StaticBody3D" parent="Entorno" unique_id=1666779182]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Suelo" unique_id=1428915742]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28619123, 0)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Suelo" unique_id=1440271499]
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Pared" type="StaticBody3D" parent="Entorno" unique_id=305342992]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.073539, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Pared" unique_id=1368966837]
+transform = Transform3D(-0.007853684, 0, -0.04999383, 0, 14, 0, 0.4999383, 0, -0.00078536844, -4.3426867, 0.76061153, 0)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared" unique_id=1472104531]
+transform = Transform3D(-0.007853684, 0, -0.04999383, 0, 14, 0, 0.4999383, 0, -0.00078536844, -4.3426867, 1.0468025, 0)
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Pared2" type="StaticBody3D" parent="Entorno" unique_id=562246570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8735676, 1.073539, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Pared2" unique_id=889863217]
+transform = Transform3D(-0.007853683, 0, -0.04999383, 0, 14, 0, 0.49993828, 0, -0.00078536844, -4.3426867, 0.76061153, 0)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared2" unique_id=1997937145]
+transform = Transform3D(-0.007853683, 0, -0.04999383, 0, 14, 0, 0.49993828, 0, -0.00078536844, -4.3426867, 1.0468025, 0)
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Pared3" type="StaticBody3D" parent="Entorno" unique_id=251755220]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.2079945, 1.073539, -9.049382)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Pared3" unique_id=323931895]
+transform = Transform3D(-0.0059688, 0, -0.04999383, 0, 14, 0, 0.37995312, 0, -0.00078536844, -4.4385357, 0.76061153, 0.35851556)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared3" unique_id=1761548126]
+transform = Transform3D(-0.0059688, 0, -0.04999383, 0, 14, 0, 0.37995312, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Pared4" type="StaticBody3D" parent="Entorno" unique_id=766250165]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.35012555, 1.073539, 5.1466475)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Pared4" unique_id=1807780687]
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.4385357, 0.76061153, 0.35851556)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared4" unique_id=2087937505]
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Pared5" type="StaticBody3D" parent="Entorno" unique_id=2129588281]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.35012555, 1.073539, -14.261411)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Pared5" unique_id=1331095295]
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.856471, 0.76061153, 0.35851556)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared5" unique_id=924766667]
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Pared6" type="StaticBody3D" parent="Entorno" unique_id=61635994]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3826804, 1.073539, -0.35682106)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Pared6" unique_id=207867102]
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.856471, 0.76061153, 0.35851556)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared6" unique_id=1335013888]
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Pared7" type="StaticBody3D" parent="Entorno" unique_id=390132222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.87994, 1.073539, -0.35682106)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Pared7" unique_id=1546315833]
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.856471, 0.76061153, 0.35851556)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared7" unique_id=133827609]
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Pared8" type="StaticBody3D" parent="Entorno" unique_id=1684111169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.213888, 1.073539, -0.35682106)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Pared8" unique_id=1447565482]
+transform = Transform3D(-0.00078536844, 0, -0.04999383, 0, 3, 0, 0.04999383, 0, -0.00078536844, -4.856471, -0.72040033, -7.4237328)
+mesh = SubResource("BoxMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared8" unique_id=2081367929]
+transform = Transform3D(-0.00078536844, 0, -0.04999383, 0, 3, 0, 0.04999383, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+shape = SubResource("BoxShape3D_kddjp")
+
+[node name="Camaras" type="Node3D" parent="." unique_id=1280728431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
+
+[node name="ReCamera" parent="Camaras" unique_id=734178932 groups=["camera"] instance=ExtResource("8_eratf")]
+transform = Transform3D(0.9887472, -0.096601516, 0.114224665, 0.0020923729, 0.7724071, 0.6351244, -0.14958191, -0.6277384, 0.76391745, 0, 3.7706578, 9.749409)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera/Trigger" parent_id_path=PackedInt32Array(734178932, 1968746075) index="0" unique_id=695397330]
+transform = Transform3D(6.705001, 0, 0, -5.9604645e-08, 3.4350004, 0, 0, 5.9604645e-07, 2, -0.7251326, 0.52766323, -3.6420097)
+shape = SubResource("BoxShape3D_0ru8o")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="ReCamera2" parent="Camaras" unique_id=474699132 groups=["camera"] instance=ExtResource("8_eratf")]
+transform = Transform3D(0.9077033, 0.2875029, -0.30564168, -0.07778611, 0.8310552, 0.5507237, 0.41233978, -0.47611898, 0.77671534, 4.946356, 3.5419035, 8.49909)
+far = 4007.85
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera2/Trigger" parent_id_path=PackedInt32Array(474699132, 1968746075) index="0" unique_id=2106505841]
+transform = Transform3D(6.415, 3.267336e-07, -1.7928772e-06, -7.7486004e-07, 2.705, -1.797079e-07, 1.9073478e-06, 8.061533e-08, 6.03, 1.9741573, 0.62528825, -0.6647377)
+shape = SubResource("BoxShape3D_krpui")
+
+[node name="ReCamera3" parent="Camaras" unique_id=271864283 groups=["camera"] instance=ExtResource("8_eratf")]
+transform = Transform3D(0.15434076, -0.7654919, 0.62466085, -0.03237633, 0.6279785, 0.77755696, -0.9874871, -0.14023298, 0.07213886, 1.8468819, 4.99518, -6.891619)
+far = 4007.85
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera3/Trigger" parent_id_path=PackedInt32Array(271864283, 1968746075) index="0" unique_id=1933255246]
+transform = Transform3D(6.415011, -3.2782555e-07, -1.9669533e-06, -9.536743e-07, 2.7050097, 1.2777746e-06, -1.7881393e-07, 1.2870878e-06, 6.030001, 0.61890507, -1.4691805, -2.7193208)
+shape = SubResource("BoxShape3D_krpui")
+
+[node name="ReCamera4" parent="Camaras" unique_id=227933402 groups=["camera"] instance=ExtResource("8_eratf")]
+transform = Transform3D(-0.7970228, -0.48564354, 0.35903355, -0.03237634, 0.62797856, 0.77755696, -0.60308087, 0.60810643, -0.51623654, -4.7398577, 4.99518, -4.280911)
+far = 4007.85
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera4/Trigger" parent_id_path=PackedInt32Array(227933402, 1968746075) index="0" unique_id=1485263815]
+transform = Transform3D(6.4150105, -2.9802322e-07, -2.026558e-06, -7.1525574e-07, 2.7050095, 9.536743e-07, -3.5762787e-07, 1.2516975e-06, 6.0300007, 1.8524323, -0.71756554, -3.2749853)
+shape = SubResource("BoxShape3D_krpui")
+
+[editable path="Player/PSXModels"]
+[editable path="Camaras/ReCamera"]
+[editable path="Camaras/ReCamera2"]
+[editable path="Camaras/ReCamera3"]
+[editable path="Camaras/ReCamera4"]

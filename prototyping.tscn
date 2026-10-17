@@ -9,19 +9,17 @@
 [ext_resource type="AnimationLibrary" uid="uid://br2vai0qy1a78" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking.fbx" id="6_626rt"]
 [ext_resource type="AnimationLibrary" uid="uid://dixxytss15yqm" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking Backwards.fbx" id="7_o7f6j"]
 [ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="8_eratf"]
-[ext_resource type="Script" uid="uid://cfm8ffq2se0fh" path="res://Scripts/aiming_ray.gd" id="9_o7f6j"]
-[ext_resource type="PackedScene" uid="uid://cp80vri3b33u" path="res://Scripts/Combat/aim_target.tscn" id="11_b1uta"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7tyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_1yviv"]
+[sub_resource type="Sky" id="Sky_626rt"]
 sky_material = SubResource("ProceduralSkyMaterial_v7tyh")
 
 [sub_resource type="Environment" id="Environment_cxwu1"]
 background_mode = 2
-sky = SubResource("Sky_1yviv")
+sky = SubResource("Sky_626rt")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -38,11 +36,10 @@ size = Vector3(20, 0.3, 20)
 size = Vector3(20, 0.3, 17.699707)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0ru8o"]
+size = Vector3(1.012207, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_krpui"]
-size = Vector3(0.7763672, 1, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_u5bk5"]
+size = Vector3(0.89068604, 1, 2.0322251)
 
 [node name="Node3D" type="Node3D" unique_id=2027984184]
 
@@ -50,15 +47,14 @@ size = Vector3(0.7763672, 1, 1)
 environment = SubResource("Environment_cxwu1")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1294570509]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 4.7063055, 1.9868226, 0)
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 4.706087, 2.0418892, -0.049315453)
 light_energy = 0.792
 shadow_enabled = true
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=1309790086 node_paths=PackedStringArray("aiming_ray")]
-transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, -0.9999939, 0, 2.1845276, 0)
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1309790086]
+transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, -0.9999939, -0.00021839142, 2.2395942, -0.049315453)
 collision_layer = 5
 script = ExtResource("1_v7tyh")
-aiming_ray = NodePath("AimingRay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=16153800]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8494277, 0)
@@ -127,13 +123,8 @@ libraries/Running = ExtResource("5_eratf")
 libraries/Walking = ExtResource("6_626rt")
 "libraries/Walking Backwards" = ExtResource("7_o7f6j")
 
-[node name="AimingRay" type="RayCast3D" parent="Player" unique_id=1693093418]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0003971883, -0.7003722, 0.11378183)
-target_position = Vector3(0, -1, -10)
-collide_with_areas = true
-script = ExtResource("9_o7f6j")
-
 [node name="Entorno" type="Node3D" parent="." unique_id=1874173877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
 
 [node name="Suelo" type="StaticBody3D" parent="Entorno" unique_id=1666779182]
 
@@ -185,7 +176,7 @@ transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0
 mesh = SubResource("BoxMesh_u5bk5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared4" unique_id=2087937505]
-transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3670225, 1.0468025, 0.35851553)
 shape = SubResource("BoxShape3D_kddjp")
 
 [node name="Pared5" type="StaticBody3D" parent="Entorno" unique_id=2129588281]
@@ -196,7 +187,7 @@ transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0
 mesh = SubResource("BoxMesh_u5bk5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared5" unique_id=924766667]
-transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.983938, 1.0468025, 0.3585155)
 shape = SubResource("BoxShape3D_kddjp")
 
 [node name="Pared6" type="StaticBody3D" parent="Entorno" unique_id=61635994]
@@ -207,7 +198,7 @@ transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0
 mesh = SubResource("BoxMesh_u5bk5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared6" unique_id=1335013888]
-transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.888083, 1.0468025, 0.35851556)
 shape = SubResource("BoxShape3D_kddjp")
 
 [node name="Pared7" type="StaticBody3D" parent="Entorno" unique_id=390132222]
@@ -218,7 +209,7 @@ transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0
 mesh = SubResource("BoxMesh_u5bk5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared7" unique_id=133827609]
-transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+transform = Transform3D(-0.015707368, 0, -0.04999383, 0, 14, 0, 0.9998766, 0, -0.00078536844, -4.8224373, 1.0468025, 0.35851556)
 shape = SubResource("BoxShape3D_kddjp")
 
 [node name="Pared8" type="StaticBody3D" parent="Entorno" unique_id=1684111169]
@@ -229,55 +220,58 @@ transform = Transform3D(-0.00078536844, 0, -0.04999383, 0, 3, 0, 0.04999383, 0, 
 mesh = SubResource("BoxMesh_u5bk5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Pared8" unique_id=2081367929]
-transform = Transform3D(-0.00078536844, 0, -0.04999383, 0, 3, 0, 0.04999383, 0, -0.00078536844, -4.3426867, 1.0468025, 0.35851556)
+transform = Transform3D(-0.00078536844, 0, -0.04999383, 0, 3, 0, 0.04999383, 0, -0.00078536844, -4.8553514, -0.6969595, -7.4303203)
 shape = SubResource("BoxShape3D_kddjp")
 
-[node name="Camaras" type="Node3D" parent="." unique_id=1280728431]
+[node name="Camaras" type="Node3D" parent="." unique_id=231828619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
 
 [node name="ReCamera" parent="Camaras" unique_id=734178932 groups=["camera"] instance=ExtResource("8_eratf")]
 transform = Transform3D(0.9887472, -0.096601516, 0.114224665, 0.0020923729, 0.7724071, 0.6351244, -0.14958191, -0.6277384, 0.76391745, 0, 3.7706578, 9.749409)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera/Trigger" parent_id_path=PackedInt32Array(734178932, 1968746075) index="0" unique_id=695397330]
-transform = Transform3D(6.705001, 0, 0, -5.9604645e-08, 3.4350004, 0, 0, 5.9604645e-07, 2, -0.7251326, 0.52766323, -3.6420097)
+[node name="PostProceso" parent="Camaras/ReCamera" index="0" unique_id=1209890462]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera/Trigger" parent_id_path=PackedInt32Array(734178932, 1968746075) index="0" unique_id=1200166156]
+transform = Transform3D(12.106656, 0.5669418, 5.1409006e-07, -1.2611892, 2.1090126, 1.5652186, 1.5855318, -2.6513908, 1.2450396, -3.1408005, -0.19692779, -4.2164474)
 shape = SubResource("BoxShape3D_0ru8o")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="ReCamera2" parent="Camaras" unique_id=474699132 groups=["camera"] instance=ExtResource("8_eratf")]
+[node name="ReCamera2" parent="Camaras" unique_id=1943313953 groups=["camera"] instance=ExtResource("8_eratf")]
 transform = Transform3D(0.9077033, 0.2875029, -0.30564168, -0.07778611, 0.8310552, 0.5507237, 0.41233978, -0.47611898, 0.77671534, 4.946356, 3.5419035, 8.49909)
 far = 4007.85
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera2/Trigger" parent_id_path=PackedInt32Array(474699132, 1968746075) index="0" unique_id=2106505841]
-transform = Transform3D(6.415, 3.267336e-07, -1.7928772e-06, -7.7486004e-07, 2.705, -1.797079e-07, 1.9073478e-06, 8.061533e-08, 6.03, 1.9741573, 0.62528825, -0.6647377)
+[node name="PostProceso" parent="Camaras/ReCamera2" index="0" unique_id=1209890462]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera2/Trigger" parent_id_path=PackedInt32Array(1943313953, 1968746075) index="0" unique_id=1143932010]
+transform = Transform3D(5.855634, -0.26225, 3.499111, 1.8498372, 2.274615, -4.039396, -1.855228, 1.440269, 7.0165443, -2.282249, 2.3631213, -8.076397)
 shape = SubResource("BoxShape3D_krpui")
 
-[node name="ReCamera3" parent="Camaras" unique_id=271864283 groups=["camera"] instance=ExtResource("8_eratf")]
+[node name="ReCamera3" parent="Camaras" unique_id=232857646 groups=["camera"] instance=ExtResource("8_eratf")]
 transform = Transform3D(0.15434076, -0.7654919, 0.62466085, -0.03237633, 0.6279785, 0.77755696, -0.9874871, -0.14023298, 0.07213886, 1.8468819, 4.99518, -6.891619)
 far = 4007.85
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera3/Trigger" parent_id_path=PackedInt32Array(271864283, 1968746075) index="0" unique_id=1933255246]
-transform = Transform3D(6.415011, -3.2782555e-07, -1.9669533e-06, -9.536743e-07, 2.7050097, 1.2777746e-06, -1.7881393e-07, 1.2870878e-06, 6.030001, 0.61890507, -1.4691805, -2.7193208)
+[node name="PostProceso" parent="Camaras/ReCamera3" index="0" unique_id=1209890462]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera3/Trigger" parent_id_path=PackedInt32Array(232857646, 1968746075) index="0" unique_id=1125858563]
+transform = Transform3D(6.3572865, -0.060249563, 0.79585046, 0.7568613, 1.6528199, -4.7201176, -0.40548795, 2.1404755, 3.6671576, -0.23073435, 1.8891459, -5.336462)
 shape = SubResource("BoxShape3D_krpui")
 
-[node name="ReCamera4" parent="Camaras" unique_id=227933402 groups=["camera"] instance=ExtResource("8_eratf")]
+[node name="ReCamera4" parent="Camaras" unique_id=699770985 groups=["camera"] instance=ExtResource("8_eratf")]
 transform = Transform3D(-0.7970228, -0.48564354, 0.35903355, -0.03237634, 0.62797856, 0.77755696, -0.60308087, 0.60810643, -0.51623654, -4.7398577, 4.99518, -4.280911)
 far = 4007.85
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera4/Trigger" parent_id_path=PackedInt32Array(227933402, 1968746075) index="0" unique_id=1485263815]
-transform = Transform3D(6.4150105, -2.9802322e-07, -2.026558e-06, -7.1525574e-07, 2.7050095, 9.536743e-07, -3.5762787e-07, 1.2516975e-06, 6.0300007, 1.8524323, -0.71756554, -3.2749853)
+[node name="PostProceso" parent="Camaras/ReCamera4" index="0" unique_id=1209890462]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera4/Trigger" parent_id_path=PackedInt32Array(699770985, 1968746075) index="0" unique_id=44525967]
+transform = Transform3D(5.176975, -0.040624455, 3.1849148, 3.0479894, 1.6504914, -3.4203954, -2.2496488, 2.1427207, 2.69504, -0.52383137, 2.1862712, -5.6086187)
 shape = SubResource("BoxShape3D_krpui")
-
-[node name="TargetTest" type="MeshInstance3D" parent="." unique_id=1502920211 groups=["aim_target"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3430943, 1.9522569, 2.0408354)
-mesh = SubResource("SphereMesh_u5bk5")
-
-[node name="AimTarget" parent="TargetTest" unique_id=1216637746 instance=ExtResource("11_b1uta")]
-
-[node name="CollisionShape3D" parent="TargetTest/AimTarget" index="0" unique_id=1221165519]
-transform = Transform3D(143.56, 0, 0, 0, 143.56, 0, 0, 0, 143.56, 0, 0, 0)
 
 [editable path="Player/PSXModels"]
 [editable path="Camaras/ReCamera"]
 [editable path="Camaras/ReCamera2"]
 [editable path="Camaras/ReCamera3"]
 [editable path="Camaras/ReCamera4"]
-[editable path="TargetTest/AimTarget"]
