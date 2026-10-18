@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 	else:
 		var mag = player.mag_ammo.get(w.nombre,0)
 		var reserve = player.reserve_ammo.get(w.ammo_type,0)
-		ammo_label.text = "%s\n%d  / %d" % [w.nombre, mag, reserve]
+		ammo_label.text = "%s\n Balas: %d  / %d \n Reserva: %d" % [w.nombre, mag, w.mag_size, reserve]
 
 
 func health_color() -> Color:

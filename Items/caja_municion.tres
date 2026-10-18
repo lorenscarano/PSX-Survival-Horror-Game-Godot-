@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dvl60mm7gqtiq"]
+
+[ext_resource type="Script" uid="uid://ck3hexymsvk4k" path="res://Scripts/item_data.gd" id="1_u3jv0"]
+
+[resource]
+script = ExtResource("1_u3jv0")
+nombre = "9mm Ammo"
+metadata/_custom_type_script = "uid://ck3hexymsvk4k"

@@ -229,7 +229,6 @@ func take_damage(amount: int) -> void:
 	if is_dead:
 		return
 	health -= amount
-	print("Vida del PJ: ", health)
 	if health <= 0:
 		die()
 		
@@ -237,8 +236,21 @@ func die() -> void:
 	is_dead = true
 	is_aiming = false
 	velocity = Vector3.ZERO
-	print("Moriste mantecaaaAAAaa")
 	anim.play(DEATH_ANIM)
 	await anim.animation_finished
 	await get_tree().create_timer(2.0).timeout
 	get_tree().reload_current_scene()
+
+func apply_item(item: ItemData) -> bool:
+	if is_dead or is_aiming or is_reloading or is_quick_turning:
+		return false
+	match item.item_type:
+		ItemData.Type.AMMO:
+			reserve_ammo[item.ammo_type] = reserve_ammo.get(item.ammo_type,0 ) + item.amount
+			return true
+		ItemData.Type.HEAL:
+			if health >= max_health:
+				return false 
+			health = min(health + item.amount, max_health)
+			return true
+	return false

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ct8p1od210a04"]
+
+[ext_resource type="Script" uid="uid://bntjgi4xn2grv" path="res://Scripts/pickup.gd" id="1_0rhox"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u5bk5"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u5bk5"]
+size = Vector3(0.2, 0.2, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kddjp"]
+albedo_color = Color(0.5380662, 0, 0.05985871, 1)
+
+[node name="Pickup" type="Area3D" unique_id=1289381343]
+script = ExtResource("1_0rhox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=907386678]
+shape = SubResource("BoxShape3D_u5bk5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1472217944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0071232915, 0.001804471, 0.0041312575)
+mesh = SubResource("BoxMesh_u5bk5")
+surface_material_override/0 = SubResource("StandardMaterial3D_kddjp")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1542108217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+pixel_size = 0.01
+billboard = 1
+font_size = 16
