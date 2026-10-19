@@ -8,7 +8,9 @@
 [ext_resource type="Resource" uid="uid://dvl60mm7gqtiq" path="res://Items/caja_municion.tres" id="7_s5h0t"]
 [ext_resource type="Resource" uid="uid://dpge7aeep6fi5" path="res://Items/hierba.tres" id="8_s5h0t"]
 [ext_resource type="PackedScene" uid="uid://b5hxamah77agt" path="res://FreeModels/low-poly-wooden-desk-chair-psx-style/source/wooden chair and desk and book psx.glb" id="10_al1nu"]
+[ext_resource type="Resource" uid="uid://bfd2a44wkj07g" path="res://Items/llave_roja.tres" id="10_qbtlw"]
 [ext_resource type="PackedScene" uid="uid://38kk0j7woqta" path="res://Escenas/zombie.tscn" id="11_drl7j"]
+[ext_resource type="PackedScene" uid="uid://cahqs105ha4ed" path="res://Escenas/door.tscn" id="12_al88b"]
 [ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="12_xhfdh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v7tyh"]
@@ -42,6 +44,12 @@ size = Vector3(1.9866943, 2.041504, 0.09161377)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0ru8o"]
 size = Vector3(1.8184204, 5.57251, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qbtlw"]
+albedo_color = Color(1, 0.5023, 0.43550968, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_al1nu"]
+material = SubResource("StandardMaterial3D_qbtlw")
 
 [node name="DemoLevel" type="Node3D" unique_id=2027984184]
 
@@ -152,7 +160,7 @@ shape = SubResource("BoxShape3D_u5bk5")
 debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
 
 [node name="Pared3" type="StaticBody3D" parent="Entorno/Paredes" unique_id=838391459]
-transform = Transform3D(-1, 0, -1.0609308e-06, 0, 1.475, 0, 1.509958e-07, 0, -7.026227, -0.7713499, -0.10583287, -2.7566125)
+transform = Transform3D(-1, 0, -4.788077e-07, 0, 1.475, 0, 1.509958e-07, 0, -3.171, -0.7713491, -0.10583287, 2.7736697)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Paredes/Pared3" unique_id=2069610799]
 transform = Transform3D(-6.0323366e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1.3800378, 4.371139e-08, 1.9106855e-15, 0, 1, 0)
@@ -391,6 +399,66 @@ transform = Transform3D(-6.0323366e-08, 0, 1, 0, 1, 0, -1.3800378, 0, -4.371139e
 shape = SubResource("BoxShape3D_u5bk5")
 debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
 
+[node name="Pared23" type="StaticBody3D" parent="Entorno/Paredes" unique_id=1195666515]
+transform = Transform3D(-1, 0, -5.1655667e-07, 0, 1.475, 0, 1.509958e-07, 0, -3.421, -0.7713507, -0.10583287, -7.834044)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Paredes/Pared23" unique_id=643716999]
+transform = Transform3D(-6.0323366e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1.3800378, 4.371139e-08, 1.9106855e-15, 0, 1, 0)
+mesh = SubResource("PlaneMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Paredes/Pared23" unique_id=1641404470]
+transform = Transform3D(-6.0323366e-08, 0, 1, 0, 1, 0, -1.3800378, 0, -4.371139e-08, 0.04949951, 0.9831543, 0.011872053)
+shape = SubResource("BoxShape3D_u5bk5")
+debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
+
+[node name="Pared24" type="StaticBody3D" parent="Entorno/Paredes" unique_id=102195100]
+transform = Transform3D(-1, 0, -4.788077e-07, 0, 1.475, 0, 1.509958e-07, 0, -3.171, -0.77134997, 1.4063513, -2.9896965)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Paredes/Pared24" unique_id=1606921683]
+transform = Transform3D(-6.0323366e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1.3800378, 4.371139e-08, 1.9106855e-15, 0, 1, 0)
+mesh = SubResource("PlaneMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Paredes/Pared24" unique_id=2061257027]
+transform = Transform3D(-6.0323366e-08, 0, 1, 0, 1, 0, -1.3800378, 0, -4.371139e-08, 0.04949951, 0.9831543, 0.011872053)
+shape = SubResource("BoxShape3D_u5bk5")
+debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
+
+[node name="Pared25" type="StaticBody3D" parent="Entorno/Paredes" unique_id=1595624185]
+transform = Transform3D(1, 0, 0, 0, 1.475, 0, 0, 0, 3.171, -0.7713491, -0.10583287, 2.7736697)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Paredes/Pared25" unique_id=1357217885]
+transform = Transform3D(-6.0323366e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1.3800378, 4.371139e-08, 1.9106855e-15, 0, 1, 0)
+mesh = SubResource("PlaneMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Paredes/Pared25" unique_id=274406165]
+transform = Transform3D(-6.0323366e-08, 0, 1, 0, 1, 0, -1.3800378, 0, -4.371139e-08, 0.04949951, 0.9831543, 0.011872053)
+shape = SubResource("BoxShape3D_u5bk5")
+debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
+
+[node name="Pared26" type="StaticBody3D" parent="Entorno/Paredes" unique_id=802883438]
+transform = Transform3D(1, 0, 0, 0, 1.475, 0, 0, 0, 3.421, -0.7713507, -0.10583287, -7.834044)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Paredes/Pared26" unique_id=741095259]
+transform = Transform3D(-6.0323366e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1.3800378, 4.371139e-08, 1.9106855e-15, 0, 1, 0)
+mesh = SubResource("PlaneMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Paredes/Pared26" unique_id=1337677037]
+transform = Transform3D(-6.0323366e-08, 0, 1, 0, 1, 0, -1.3800378, 0, -4.371139e-08, 0.04949951, 0.9831543, 0.011872053)
+shape = SubResource("BoxShape3D_u5bk5")
+debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
+
+[node name="Pared27" type="StaticBody3D" parent="Entorno/Paredes" unique_id=308069459]
+transform = Transform3D(1, 0, 0, 0, 1.475, 0, 0, 0, 3.171, -0.77134997, 1.4063513, -2.9896965)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Paredes/Pared27" unique_id=1728974516]
+transform = Transform3D(-6.0323366e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1.3800378, 4.371139e-08, 1.9106855e-15, 0, 1, 0)
+mesh = SubResource("PlaneMesh_u5bk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Paredes/Pared27" unique_id=1286879268]
+transform = Transform3D(-6.0323366e-08, 0, 1, 0, 1, 0, -1.3800378, 0, -4.371139e-08, 0.04949951, 0.9831543, 0.011872053)
+shape = SubResource("BoxShape3D_u5bk5")
+debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
+
 [node name="Techos" type="Node3D" parent="Entorno" unique_id=1980704381]
 visible = false
 
@@ -603,6 +671,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19834423, 0.17105031, 0.098
 [node name="9Cal" parent="Items/PickupHierba2" index="2" unique_id=2003866201]
 visible = false
 
+[node name="PickupHierba4" parent="Items" unique_id=1077633538 instance=ExtResource("6_hhpyo")]
+transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, 27.494242, 1.7319171, -7.685581)
+item = ExtResource("10_qbtlw")
+
+[node name="CollisionShape3D" parent="Items/PickupHierba4" index="0" unique_id=907386678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.330338, 0.17105031, -0.89597607)
+
+[node name="9Cal" parent="Items/PickupHierba4" index="2" unique_id=2003866201]
+visible = false
+
+[node name="MeshInstance3D" parent="Items/PickupHierba4" index="3" unique_id=14542848]
+transform = Transform3D(0.17, 0, 0, 0, 0.17, 0, 0, 0, 0.17, 0, -0.24795708, 0)
+mesh = SubResource("BoxMesh_al1nu")
+
 [node name="PickupHierba3" parent="Items" unique_id=1696500670 instance=ExtResource("6_hhpyo")]
 transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, -7.599308, -0.047951818, -17.985449)
 item = ExtResource("8_s5h0t")
@@ -664,6 +746,9 @@ spot_range = 9.481
 spot_attenuation = -0.57
 spot_angle = 180.0
 
+[node name="Door" parent="." unique_id=694108246 instance=ExtResource("12_al88b")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42.415714, 1.4308617, -0.098703325)
+
 [editable path="Camaras/ReCamera"]
 [editable path="Camaras/ReCamera2"]
 [editable path="Camaras/ReCamera3"]
@@ -677,5 +762,7 @@ spot_angle = 180.0
 [editable path="Items/PickupAmmo"]
 [editable path="Items/PickupHierba"]
 [editable path="Items/PickupHierba2"]
+[editable path="Items/PickupHierba4"]
 [editable path="Items/PickupHierba3"]
 [editable path="wooden chair and desk and book psx"]
+[editable path="Door"]

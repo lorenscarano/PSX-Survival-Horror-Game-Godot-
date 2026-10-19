@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bfd2a44wkj07g"]
+
+[ext_resource type="Script" uid="uid://ck3hexymsvk4k" path="res://Scripts/item_data.gd" id="1_3us36"]
+
+[resource]
+script = ExtResource("1_3us36")
+nombre = "Llave"
+item_type = 2
+amount = 1
+ammo_type = ""
+metadata/_custom_type_script = "uid://ck3hexymsvk4k"

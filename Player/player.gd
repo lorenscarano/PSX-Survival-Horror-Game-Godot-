@@ -13,6 +13,8 @@ class_name Player extends CharacterBody3D
 var health := 0 
 var is_dead := false
 
+var keys: Array[ItemData] = []
+
 @export_group ("Weapon Settings")
 @export var weapons: Array[WeaponData] = []
 @export var shoot_height := -0.3
@@ -252,5 +254,15 @@ func apply_item(item: ItemData) -> bool:
 			if health >= max_health:
 				return false 
 			health = min(health + item.amount, max_health)
+			return true
+		ItemData.Type.KEY:
+			if not has_key(item.key_id):
+				keys.append(item)
+			return true
+	return false
+
+func has_key(id: String) -> bool:
+	for k in keys:
+		if k.key_id == id:
 			return true
 	return false
