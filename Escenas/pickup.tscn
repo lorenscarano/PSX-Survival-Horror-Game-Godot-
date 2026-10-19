@@ -26,4 +26,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kddjp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 pixel_size = 0.01
 billboard = 1
+render_priority = 2
+outline_render_priority = 1
 font_size = 16

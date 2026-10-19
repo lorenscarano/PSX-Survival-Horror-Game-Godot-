@@ -7,6 +7,9 @@ var player_inside: Player = null
 @onready var prompt: Label3D = $Label3D
 
 func _ready() -> void:
+	prompt.render_priority = 2
+	prompt.outline_render_priority = 1
+	prompt.no_depth_test = true
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	prompt.visible = false

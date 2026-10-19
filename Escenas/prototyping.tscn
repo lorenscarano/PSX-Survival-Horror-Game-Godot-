@@ -337,9 +337,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, 
 [node name="ReCamera" parent="Camaras" unique_id=734178932 groups=["camera"] instance=ExtResource("12_xhfdh")]
 transform = Transform3D(-0.83684707, -0.34633696, 0.42395484, 0.0020923174, 0.772407, 0.6351244, -0.5474327, 0.53238904, -0.645662, -34.409023, 4.179649, -8.143128)
 
-[node name="PostProceso" parent="Camaras/ReCamera" index="0" unique_id=1209890462]
-visible = false
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera/Trigger" parent_id_path=PackedInt32Array(734178932, 1968746075) index="0" unique_id=1200166156]
 transform = Transform3D(5.220309, 2.3063774, 0.02493196, -4.9312563, 0.942328, 1.5606333, 6.050057, -1.2219946, 1.250522, -1.5929184, 3.527979, -8.6310005)
 shape = SubResource("BoxShape3D_0ru8o")
