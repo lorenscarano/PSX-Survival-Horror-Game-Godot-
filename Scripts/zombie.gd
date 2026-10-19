@@ -2,8 +2,8 @@ class_name Zombie extends CharacterBody3D
 
 enum State {IDLE, CHASE, ATTACK, DEAD}
 
-@export var max_health := 30
-@export var move_speed := 1.2
+@export var max_health := 75
+@export var move_speed := 1.4
 @export var turn_speed := 5.0
 @export var detection_range := 8.0
 @export var attack_range := 1.3

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://01qyp05maebd"]
+
+[ext_resource type="PackedScene" uid="uid://cosmw41576tt3" path="res://FreeModels/ammo-boxespsx/source/Ammo Boxes.fbx" id="1_hijrm"]
+
+[node name="Node3D" type="Node3D" unique_id=1559160274]
+
+[node name="Ammo Boxes" parent="." unique_id=344453482 instance=ExtResource("1_hijrm")]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, -0.48204792, 0, 0.87534904)
+
+[editable path="Ammo Boxes"]

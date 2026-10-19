@@ -21,7 +21,7 @@ var is_dead := false
 var current_weapon: WeaponData
 var current_index := 0
 var mag_ammo := {} #Balas en cada cargador, segun el nombre del arma
-var reserve_ammo := {"9mm": 30, "escopeta": 8} #balas de cada tipo
+var reserve_ammo := {"9mm": 0, "escopeta": 0} #balas de cada tipo
 
 const  GRAVITY = -9.81
 const DEATH_ANIM := "Dying/mixamo_com"

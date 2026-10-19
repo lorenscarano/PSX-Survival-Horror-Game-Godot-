@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://cybxxuaq8pve0"]
 
 [ext_resource type="PackedScene" uid="uid://dcxy6iv0jt8wg" path="res://Escenas/player.tscn" id="1_8foao"]
+[ext_resource type="PackedScene" uid="uid://dfxys8ck46ke3" path="res://FreeModels/ModelCoder/sci_briefing_table.glb" id="2_yu4p2"]
 [ext_resource type="PackedScene" uid="uid://d0b2ubpl0q8qd" path="res://Escenas/hud.tscn" id="4_p5xsa"]
 [ext_resource type="Script" uid="uid://cj5lp8cjpdqq6" path="res://Escenas/hud.gd" id="5_rn7uw"]
 [ext_resource type="PackedScene" uid="uid://ct8p1od210a04" path="res://Escenas/pickup.tscn" id="6_hhpyo"]
 [ext_resource type="Resource" uid="uid://dvl60mm7gqtiq" path="res://Items/caja_municion.tres" id="7_s5h0t"]
 [ext_resource type="Resource" uid="uid://dpge7aeep6fi5" path="res://Items/hierba.tres" id="8_s5h0t"]
+[ext_resource type="PackedScene" uid="uid://b5hxamah77agt" path="res://FreeModels/low-poly-wooden-desk-chair-psx-style/source/wooden chair and desk and book psx.glb" id="10_al1nu"]
 [ext_resource type="PackedScene" uid="uid://38kk0j7woqta" path="res://Escenas/zombie.tscn" id="11_drl7j"]
 [ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="12_xhfdh"]
 
@@ -23,11 +25,11 @@ ambient_light_sky_contribution = 0.15
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_u5bk5"]
-size = Vector3(20, 0.3, 20)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_kddjp"]
 size = Vector3(20, 0.3, 18.582275)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u5bk5"]
+size = Vector3(20, 0.3, 20)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kddjp"]
 albedo_color = Color(0.9965027, 0.9857988, 1.00111965e-05, 1)
@@ -41,9 +43,7 @@ size = Vector3(1.9866943, 2.041504, 0.09161377)
 [sub_resource type="BoxShape3D" id="BoxShape3D_0ru8o"]
 size = Vector3(1.8184204, 5.57251, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_0rhox"]
-
-[node name="Node3D" type="Node3D" unique_id=2027984184]
+[node name="DemoLevel" type="Node3D" unique_id=2027984184]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1616399198]
 environment = SubResource("Environment_cxwu1")
@@ -63,12 +63,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, 
 [node name="Bloque2" type="StaticBody3D" parent="Entorno" unique_id=1994492037]
 transform = Transform3D(-0.012710573, 0, 1.9999596, 0, 2, 0, -1.9999596, 0, -0.012710573, 13.714585, 1.3362458, -2.499889)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Entorno/Bloque2" unique_id=1583684089]
-transform = Transform3D(-0.00078536844, 0, -0.04999383, 0, 3, 0, 0.04999383, 0, -0.00078536844, -4.856471, -0.72040033, -7.4237328)
-mesh = SubResource("BoxMesh_u5bk5")
+[node name="Mesa" parent="Entorno/Bloque2" unique_id=693334010 instance=ExtResource("2_yu4p2")]
+transform = Transform3D(-0.0049889, 0, -0.7849842, 0, 0.785, 0, 0.7849842, 0, -0.0049889, -4.704842, -0.77288055, -7.379043)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Bloque2" unique_id=1871694665]
-transform = Transform3D(-0.00078536844, 0, -0.04999383, 0, 3, 0, 0.04999383, 0, -0.00078536844, -4.8553514, -0.6969595, -7.4303203)
+transform = Transform3D(-0.0014136632, 0, -0.04999383, 0, 3, 0, 0.0899889, 0, -0.00078536844, -4.7100263, -0.6144433, -7.3645277)
 shape = SubResource("BoxShape3D_kddjp")
 
 [node name="Suelos" type="Node3D" parent="Entorno" unique_id=714192780]
@@ -451,9 +450,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, 
 [node name="ReCamera" parent="Camaras" unique_id=734178932 groups=["camera"] instance=ExtResource("12_xhfdh")]
 transform = Transform3D(-0.8368471, -0.23843946, 0.49278155, 0.002092313, 0.8987618, 0.43843213, -0.5474327, 0.36793154, -0.7516273, -32.448383, 2.5980344, -9.92345)
 
-[node name="PostProceso" parent="Camaras/ReCamera" index="0" unique_id=1209890462]
-visible = false
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera/Trigger" parent_id_path=PackedInt32Array(734178932, 1968746075) index="0" unique_id=1200166156]
 transform = Transform3D(-5.2185774, 2.3069792, 0, 3.4613967, 0.68384033, -1.792639, -6.9969516, -1.3823311, -0.88681984, -0.17952615, 3.8209162, -9.754295)
 shape = SubResource("BoxShape3D_0ru8o")
@@ -558,32 +554,115 @@ transform = Transform3D(4.553082, 0.7037752, -0.04944609, -0.14059117, 0.2474392
 shape = SubResource("BoxShape3D_0ru8o")
 debug_color = Color(0.90600157, 0.13804552, 0.6623147, 1)
 
-[node name="Zombie" parent="." unique_id=1667762410 instance=ExtResource("11_drl7j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5050473, 1.2361174, -4.5672064)
-
 [node name="HUD" parent="." unique_id=11680840 instance=ExtResource("4_p5xsa")]
 script = ExtResource("5_rn7uw")
 
-[node name="PickupAmmo" parent="." unique_id=1289381343 instance=ExtResource("6_hhpyo")]
-transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, -0.28718853, 0.91295624, 6.495449)
+[node name="Zombies" type="Node3D" parent="." unique_id=642606853]
+
+[node name="Zombie" parent="Zombies" unique_id=1667762410 instance=ExtResource("11_drl7j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.26189, 1.3988447, -4.5672064)
+
+[node name="Zombie2" parent="Zombies" unique_id=1426280134 instance=ExtResource("11_drl7j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.192327, 1.2361174, -0.6085558)
+
+[node name="Zombie3" parent="Zombies" unique_id=1700755516 instance=ExtResource("11_drl7j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.186502, 1.2361174, 4.770568)
+
+[node name="Zombie4" parent="Zombies" unique_id=748105850 instance=ExtResource("11_drl7j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.372043, 1.3988447, -14.716159)
+
+[node name="Items" type="Node3D" parent="." unique_id=2082587576]
+
+[node name="PickupAmmo" parent="Items" unique_id=1289381343 instance=ExtResource("6_hhpyo")]
+transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, -22.079185, 0.031135082, 1.6756921)
 item = ExtResource("7_s5h0t")
 
-[node name="CollisionShape3D" parent="PickupAmmo" index="0" unique_id=907386678]
+[node name="CollisionShape3D" parent="Items/PickupAmmo" index="0" unique_id=907386678]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19834423, 0.17105031, 0.09810591)
 
-[node name="MeshInstance3D" parent="PickupAmmo" index="1" unique_id=1472217944]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0071229935, 0.001804471, -0.06583941)
+[node name="MeshInstance3D" parent="Items/PickupAmmo" index="3" unique_id=14542848]
+visible = false
 
-[node name="PickupHierba" parent="." unique_id=1749891618 instance=ExtResource("6_hhpyo")]
-transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, -1.5592871, 0.91295624, 6.5035334)
+[node name="PickupHierba" parent="Items" unique_id=1749891618 instance=ExtResource("6_hhpyo")]
+transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, -1.7892724, 0.91295624, 6.504995)
 item = ExtResource("8_s5h0t")
 
-[node name="CollisionShape3D" parent="PickupHierba" index="0" unique_id=907386678]
+[node name="CollisionShape3D" parent="Items/PickupHierba" index="0" unique_id=907386678]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19834423, 0.17105031, 0.09810591)
 
-[node name="MeshInstance3D" parent="PickupHierba" index="1" unique_id=1472217944]
-transform = Transform3D(0.265, 0, 0, 0, 0.265, 0, 0, 0, 0.265, -0.0071229935, 0.16479754, -0.06583929)
-mesh = SubResource("CylinderMesh_0rhox")
+[node name="9Cal" parent="Items/PickupHierba" index="2" unique_id=2003866201]
+visible = false
+
+[node name="PickupHierba2" parent="Items" unique_id=1343596803 instance=ExtResource("6_hhpyo")]
+transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, 26.13763, -0.048324585, 7.225306)
+item = ExtResource("8_s5h0t")
+
+[node name="CollisionShape3D" parent="Items/PickupHierba2" index="0" unique_id=907386678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19834423, 0.17105031, 0.09810591)
+
+[node name="9Cal" parent="Items/PickupHierba2" index="2" unique_id=2003866201]
+visible = false
+
+[node name="PickupHierba3" parent="Items" unique_id=1696500670 instance=ExtResource("6_hhpyo")]
+transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, -7.599308, -0.047951818, -17.985449)
+item = ExtResource("8_s5h0t")
+
+[node name="CollisionShape3D" parent="Items/PickupHierba3" index="0" unique_id=907386678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19834423, 0.17105031, 0.09810591)
+
+[node name="9Cal" parent="Items/PickupHierba3" index="2" unique_id=2003866201]
+visible = false
+
+[node name="wooden chair and desk and book psx" parent="." unique_id=461306786 instance=ExtResource("10_al1nu")]
+transform = Transform3D(-2.7756732e-08, 0, 0.635, 0, 0.635, 0, -0.635, 0, -2.7756732e-08, 26.693367, -0.19358698, -7.6559258)
+
+[node name="chair" parent="wooden chair and desk and book psx" index="0" unique_id=1364845748]
+transform = Transform3D(0.8759854, 0, -0.4823377, 0, 1, 0, 0.4823377, 0, 0.8759854, 1.6759235, 0, -0.4412043)
+
+[node name="book" parent="wooden chair and desk and book psx" index="3" unique_id=251326856]
+visible = false
+
+[node name="Luces" type="Node3D" parent="." unique_id=1645431531]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Luces" unique_id=965401144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4750476, 0)
+light_color = Color(1, 1, 0.59607846, 1)
+light_energy = 0.345
+spot_range = 9.481
+spot_attenuation = -0.57
+spot_angle = 180.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Luces" unique_id=1979565690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.92218, 4.4750476, 1.3066497)
+light_color = Color(1, 1, 0.59607846, 1)
+light_energy = 0.345
+spot_range = 9.481
+spot_attenuation = -0.57
+spot_angle = 180.0
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Luces" unique_id=161562366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.194527, 4.4750476, 1.3066497)
+light_color = Color(1, 1, 0.59607846, 1)
+light_energy = 0.345
+spot_range = 9.481
+spot_attenuation = -0.57
+spot_angle = 180.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Luces" unique_id=1567567621]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.475107, 4.4750476, 1.3066497)
+light_color = Color(1, 1, 0.59607846, 1)
+light_energy = 0.345
+spot_range = 9.481
+spot_attenuation = -0.57
+spot_angle = 180.0
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Luces" unique_id=1862407331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.735981, 4.4750476, -17.16882)
+light_color = Color(1, 1, 0.59607846, 1)
+light_energy = 0.345
+spot_range = 9.481
+spot_attenuation = -0.57
+spot_angle = 180.0
 
 [editable path="Camaras/ReCamera"]
 [editable path="Camaras/ReCamera2"]
@@ -595,5 +674,8 @@ mesh = SubResource("CylinderMesh_0rhox")
 [editable path="Camaras/ReCamera7"]
 [editable path="Camaras/ReCamera8"]
 [editable path="Camaras/ReCamera9"]
-[editable path="PickupAmmo"]
-[editable path="PickupHierba"]
+[editable path="Items/PickupAmmo"]
+[editable path="Items/PickupHierba"]
+[editable path="Items/PickupHierba2"]
+[editable path="Items/PickupHierba3"]
+[editable path="wooden chair and desk and book psx"]
