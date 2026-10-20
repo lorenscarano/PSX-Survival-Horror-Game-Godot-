@@ -241,7 +241,7 @@ func die() -> void:
 	anim.play(DEATH_ANIM)
 	await anim.animation_finished
 	await get_tree().create_timer(2.0).timeout
-	get_tree().reload_current_scene()
+	get_tree().call_group("end_screen", "show_screen", "Moriste", Color.DARK_RED)
 
 func apply_item(item: ItemData) -> bool:
 	if is_dead or is_aiming or is_reloading or is_quick_turning:
