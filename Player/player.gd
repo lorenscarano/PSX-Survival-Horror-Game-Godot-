@@ -13,17 +13,26 @@ class_name Player extends CharacterBody3D
 var health := 0 
 var is_dead := false
 
-var keys: Array[ItemData] = []
+
+@export_group("Inventory")
+@export var starting_items: Array[ItemData] = []
+
+var inventory := Inventory.new()
+var equipped_slot := -1
 
 @export_group ("Weapon Settings")
-@export var weapons: Array[WeaponData] = []
 @export var shoot_height := -0.3
 
+@export_group("Laser")
+@export var laser_color := Color(1.0,0.1,0.1)
+@export var laser_width := 0.04
+
+var laser: MeshInstance3D
+var laser_dot: MeshInstance3D
+@onready var muzzle: Marker3D = get_node_or_null("PSXModels/Skeleton3D/BoneAttachment3D/PSX_Colt1911/Muzzle")
 
 var current_weapon: WeaponData
-var current_index := 0
 var mag_ammo := {} #Balas en cada cargador, segun el nombre del arma
-var reserve_ammo := {"9mm": 0, "escopeta": 0} #balas de cada tipo
 
 const  GRAVITY = -9.81
 const DEATH_ANIM := "Dying/mixamo_com"
@@ -41,28 +50,101 @@ var fire_cooldown := 0.0
 var model_base_pos := Vector3.ZERO
 
 func _ready():
+	create_laser()
 	gun_model.visible = false
 	model_base_pos = model.position
 	health = max_health
 	add_to_group("player")
-	
+	for it in starting_items:
+		apply_item(it)
+	for i in Inventory.SLOT_COUNT:
+		var it := inventory.items[i]
+		if it != null and it.item_type == ItemData.Type.WEAPON:
+			equip_from_slot(i)
+			break
 	anim.playback_default_blend_time = 0.2
-	for w in weapons:
-		mag_ammo[w.nombre] = w.mag_size
-		anim.get_animation(w.aim_animation).loop_mode = Animation.LOOP_LINEAR
-	if weapons.size() > 0:
-		equip_weapon(0)
 	for nombre in ["Idle/mixamo_com", "Walking/mixamo_com", "Running/mixamo_com", "Walking Backwards/mixamo_com"]:
 		anim.get_animation(nombre).loop_mode = Animation.LOOP_LINEAR
 
-func equip_weapon(index: int) -> bool:
+func register_weapon(w: WeaponData) -> void:
+	if not mag_ammo.has(w.nombre):
+		mag_ammo[w.nombre] = w.mag_size
+	anim.get_animation(w.aim_animation).loop_mode = Animation.LOOP_LINEAR
+
+
+func equip_from_slot(slot: int) -> bool:
 	if is_aiming or is_reloading or is_quick_turning:
 		return false
-	if index < 0 or index >= weapons.size():
+		
+	var it := inventory.items[slot]
+	
+	if it == null or it.item_type != ItemData.Type.WEAPON or it.weapon == null:
 		return false
-	current_index = index
-	current_weapon = weapons[index]
+		
+	current_weapon = it.weapon
+	equipped_slot = slot
+	
+	register_weapon(current_weapon)
 	return true
+
+func get_shoot_origin() -> Vector3:
+	if muzzle != null:
+		return muzzle.global_position
+	return global_position + Vector3(0, shoot_height,0)
+	
+func create_laser() -> void:
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = laser_color
+	
+	var box := BoxMesh.new()
+	box.size = Vector3(laser_width, laser_width, 1.0)
+	laser = MeshInstance3D.new()
+	laser.mesh = box
+	laser.material_override = mat
+	laser.top_level = true
+	laser.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	laser.visible = false
+	add_child(laser)
+
+	var sphere := SphereMesh.new()
+	sphere.radius = laser_width * 1.5
+	sphere.height = laser_width * 3.0
+	laser_dot = MeshInstance3D.new()
+	laser_dot.mesh = sphere
+	laser_dot.material_override = mat
+	laser_dot.top_level = true
+	laser_dot.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	laser_dot.visible = false
+	add_child(laser_dot)
+	
+func update_laser() -> void:
+	if current_weapon == null or not is_aiming:
+		laser.visible = false
+		laser_dot.visible = false
+		return
+	var from := get_shoot_origin()
+	var to := from + global_transform.basis.z * current_weapon.max_range
+	var query := PhysicsRayQueryParameters3D.create(from,to)
+	query.exclude = [self]
+	var result := get_world_3d().direct_space_state.intersect_ray(query)
+	
+	var end := to
+	if result:
+		end = result.position
+	var length := from.distance_to(end)
+	if length < 0.05:
+		laser.visible = false
+		laser_dot.visible = false
+		return
+		
+	laser.visible = true
+	laser.global_position = from.lerp(end, 0.5)
+	laser.look_at(end, Vector3.UP)
+	laser.scale = Vector3(1.0,1.0,length)
+	
+	laser_dot.visible = result != null
+	laser_dot.global_position = end
 
 func play_recoil():
 	var t:= create_tween()
@@ -136,7 +218,6 @@ func handle_shoot():
 	play_recoil()
 	for i in current_weapon.pellets:
 		fire_ray()
-		print("Balas: ", mag_ammo[current_weapon.nombre], "/", reserve_ammo.get(current_weapon.ammo_type, 0))
 
 func fire_ray():
 	var dir = global_transform.basis.z
@@ -144,38 +225,35 @@ func fire_ray():
 		var s = deg_to_rad(current_weapon.spread_degrees)
 		dir = dir.rotated(Vector3.UP, randf_range(-s,s))
 		dir = dir.rotated(global_transform.basis.x, randf_range(-s,s)).normalized()
-	var from = global_position + Vector3(0,shoot_height,0)
+	var from = get_shoot_origin()
 	var to = from + dir * current_weapon.max_range
 	var query = PhysicsRayQueryParameters3D.create(from,to)
 	query.exclude = [self]
 	var result = get_world_3d().direct_space_state.intersect_ray(query)
 	if result and result.collider.has_method("take_damage"):
 		result.collider.take_damage(current_weapon.damage)
-	if result:
-		var marca := MeshInstance3D.new()
-		marca.mesh = SphereMesh.new()
-		marca.scale = Vector3.ONE * 0.2
-		get_tree().current_scene.add_child(marca)
-		marca.global_position = result.position
-		get_tree().create_timer(2.0).timeout.connect(marca.queue_free)
 
 func handle_reload():
 	if current_weapon == null or is_reloading or is_quick_turning or is_aiming:
 		return
+		
 	if not Input.is_action_just_pressed("reload"):
 		return
+		
 	var w = current_weapon
-	var reserve = reserve_ammo.get(w.ammo_type, 0)
+	
+	if not mag_ammo.has(w.nombre):
+		register_weapon(w)
+	
+	var reserve = inventory.count_ammo(w.ammo_type)
 	if mag_ammo[w.nombre] >= w.mag_size or reserve <=0 :
 		return
-	
 	is_reloading =true
 	await get_tree().create_timer(w.reload_time).timeout
-	var taken = min(w.mag_size - mag_ammo[w.nombre], reserve)
+	var taken = inventory.take_ammo(w.ammo_type,w.mag_size - mag_ammo[w.nombre])
 	mag_ammo[w.nombre] += taken
-	reserve_ammo[w.ammo_type] = reserve - taken
 	is_reloading = false
-	print("Arma recargada. Balas: ", mag_ammo[w.nombre], "/", reserve_ammo[w.ammo_type])
+
 	
 	
 func _physics_process(delta: float) -> void:
@@ -208,6 +286,7 @@ func _physics_process(delta: float) -> void:
 	handle_reload()
 	update_animation()
 	gun_model.visible = is_aiming
+	update_laser()
 	handle_gravity(delta)
 	move_and_slide()
 	
@@ -236,6 +315,8 @@ func take_damage(amount: int) -> void:
 		
 func die() -> void:
 	is_dead = true
+	laser.visible = false
+	laser_dot.visible = false
 	is_aiming = false
 	velocity = Vector3.ZERO
 	anim.play(DEATH_ANIM)
@@ -246,23 +327,24 @@ func die() -> void:
 func apply_item(item: ItemData) -> bool:
 	if is_dead or is_aiming or is_reloading or is_quick_turning:
 		return false
-	match item.item_type:
-		ItemData.Type.AMMO:
-			reserve_ammo[item.ammo_type] = reserve_ammo.get(item.ammo_type,0 ) + item.amount
-			return true
-		ItemData.Type.HEAL:
-			if health >= max_health:
-				return false 
-			health = min(health + item.amount, max_health)
-			return true
-		ItemData.Type.KEY:
-			if not has_key(item.key_id):
-				keys.append(item)
-			return true
-	return false
+	var qty := item.amount if item.item_type == ItemData.Type.AMMO else 1
+	if not inventory.add_item(item,qty):
+		return false
+	if item.item_type == ItemData.Type.AMMO and item.weapon != null:
+		register_weapon(item.weapon)
+	return true
 
 func has_key(id: String) -> bool:
-	for k in keys:
-		if k.key_id == id:
-			return true
-	return false
+	return inventory.has_key(id)
+
+func use_slot(slot: int) -> void:
+	var it := inventory.items[slot]
+	if it == null:
+		return
+	match it.item_type:
+		ItemData.Type.HEAL:
+			if health < max_health:
+				health = min(health + it.amount, max_health)
+				inventory.remove_from_slot(slot)
+		ItemData.Type.AMMO:
+			equip_from_slot(slot)

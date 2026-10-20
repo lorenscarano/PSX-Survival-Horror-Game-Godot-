@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 		ammo_label.text = ""
 	else:
 		var mag = player.mag_ammo.get(w.nombre,0)
-		var reserve = player.reserve_ammo.get(w.ammo_type,0)
+		var reserve = player.inventory.count_ammo(w.ammo_type)
 		ammo_label.text = "%s\n Balas: %d  / %d \n Reserva: %d" % [w.nombre, mag, w.mag_size, reserve]
 
 

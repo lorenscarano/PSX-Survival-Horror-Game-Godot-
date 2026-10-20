@@ -13,6 +13,8 @@ albedo_color = Color(0.2901961, 0.47843137, 0.22745098, 1)
 
 [node name="Zombie" type="CharacterBody3D" unique_id=1667762410]
 script = ExtResource("1_1q21k")
+stagger_time = 0.08
+knockback_strength = 3.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1858836243]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)

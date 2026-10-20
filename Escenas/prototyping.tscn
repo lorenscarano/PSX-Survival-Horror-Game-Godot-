@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dcxy6iv0jt8wg" path="res://Escenas/player.tscn" id="1_8foao"]
 [ext_resource type="PackedScene" uid="uid://dfxys8ck46ke3" path="res://FreeModels/ModelCoder/sci_briefing_table.glb" id="2_yu4p2"]
 [ext_resource type="PackedScene" uid="uid://d0b2ubpl0q8qd" path="res://Escenas/hud.tscn" id="4_p5xsa"]
-[ext_resource type="Script" uid="uid://cj5lp8cjpdqq6" path="res://Escenas/hud.gd" id="5_rn7uw"]
+[ext_resource type="Script" uid="uid://cj5lp8cjpdqq6" path="res://Scripts/hud.gd" id="5_rn7uw"]
 [ext_resource type="PackedScene" uid="uid://kvbumrmrdbmb" path="res://Escenas/end_screen.tscn" id="6_g5c8g"]
 [ext_resource type="PackedScene" uid="uid://ct8p1od210a04" path="res://Escenas/pickup.tscn" id="6_hhpyo"]
 [ext_resource type="Script" uid="uid://i6tcxms40mpu" path="res://Scripts/end_screen.gd" id="7_24ett"]
@@ -390,7 +390,7 @@ transform = Transform3D(1.3800378, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-
 mesh = SubResource("PlaneMesh_u5bk5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entorno/Paredes/Pared20" unique_id=1850206091]
-transform = Transform3D(1.3800378, 0, 0, 0, 1, 0, 0, 0, 1, 0.04949951, 0.9831543, 0.011872053)
+transform = Transform3D(1.3800378, 0, 0, 0, 1, 0, 0, 0, 1, 0.04949951, 0.9831543, -9.444961)
 shape = SubResource("BoxShape3D_u5bk5")
 debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
 
@@ -479,7 +479,6 @@ shape = SubResource("BoxShape3D_u5bk5")
 debug_color = Color(0.5981989, 0.37120944, 1, 0.41960785)
 
 [node name="Techos" type="Node3D" parent="Entorno" unique_id=1980704381]
-visible = false
 
 [node name="Suelo7" type="StaticBody3D" parent="Entorno/Techos" unique_id=818780471]
 transform = Transform3D(0.655, 0, 0, 0, 1, 0, 0, 0, 1, -36.179146, 5.8702326, 0)
@@ -536,9 +535,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, 
 
 [node name="ReCamera" parent="Camaras" unique_id=734178932 groups=["camera"] instance=ExtResource("12_xhfdh")]
 transform = Transform3D(-0.8368471, -0.23843946, 0.49278155, 0.002092313, 0.8987618, 0.43843213, -0.5474327, 0.36793154, -0.7516273, -32.448383, 2.5980344, -9.92345)
-
-[node name="PostProceso" parent="Camaras/ReCamera" index="0" unique_id=1209890462]
-visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Camaras/ReCamera/Trigger" parent_id_path=PackedInt32Array(734178932, 1968746075) index="0" unique_id=1200166156]
 transform = Transform3D(-5.2185755, 1.8123289, 1.33906e-07, 3.4613957, 0.537215, -1.7926382, -6.99695, -1.0859392, -0.8868193, -1.5043683, 3.4282033, -8.960455)

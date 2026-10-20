@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://brmt8cgquespg"]
+
+[ext_resource type="Script" uid="uid://ck3hexymsvk4k" path="res://Scripts/item_data.gd" id="1_ty4n5"]
+[ext_resource type="Resource" uid="uid://ns6lsxfnwrkg" path="res://Scripts/Combat/Weapons/pistola.tres" id="2_xdfp8"]
+
+[resource]
+script = ExtResource("1_ty4n5")
+nombre = "Pistola"
+item_type = 3
+weapon = ExtResource("2_xdfp8")
+metadata/_custom_type_script = "uid://ck3hexymsvk4k"

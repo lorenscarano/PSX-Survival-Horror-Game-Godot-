@@ -5,4 +5,5 @@
 [resource]
 script = ExtResource("1_u3jv0")
 nombre = "9mm Ammo"
+max_stack = 99
 metadata/_custom_type_script = "uid://ck3hexymsvk4k"

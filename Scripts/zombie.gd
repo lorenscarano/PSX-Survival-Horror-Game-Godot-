@@ -2,6 +2,19 @@ class_name Zombie extends CharacterBody3D
 
 enum State {IDLE, CHASE, ATTACK, DEAD}
 
+@export_group("Hit Reaction")
+@export var stagger_time := 0.35
+@export var knockback_strength := 3.0
+@export var flash_color := Color.WHITE
+
+@onready var mesh: MeshInstance3D = $MeshInstance3D
+
+var stagger_timer := 0.0
+var knockback := Vector3.ZERO
+var flash_mat: StandardMaterial3D
+var base_color := Color.WHITE
+var flash_tween: Tween 
+
 @export var max_health := 75
 @export var move_speed := 1.4
 @export var turn_speed := 5.0
@@ -34,15 +47,41 @@ func can_see_player() -> bool:
 func _ready() -> void:
 	health = max_health
 	player = get_tree().get_first_node_in_group("player") as Player
-	
+	var src := mesh.material_override as StandardMaterial3D
+	if src == null:
+		src = mesh.get_active_material(0) as StandardMaterial3D
+	if src != null:
+		flash_mat = src.duplicate()
+		mesh.material_override = flash_mat
+		base_color = flash_mat.albedo_color
 func take_damage(amount: int) -> void:
 	if state == State.DEAD:
 		return
 	health -= amount
 	if health <= 0:
 		die()
-	elif  state == State.IDLE:
+		return
+	hit_react()
+	if  state == State.IDLE:
 		state = State.CHASE
+
+func hit_react() -> void:
+	stagger_timer = stagger_time
+	attack_timer = attack_cooldown * 0.5
+	if player != null:
+		var away := global_position - player.global_position
+		away.y = 0
+		knockback = away.normalized() * knockback_strength
+	flash()
+
+func flash() -> void:
+	if flash_mat == null:
+		return
+	if flash_tween:
+		flash_tween.kill()
+	flash_mat.albedo_color = flash_color
+	flash_tween = create_tween()
+	flash_tween.tween_property(flash_mat, "albedo_color", base_color, 0.15)
 
 func die() -> void:
 	state = State.DEAD
@@ -62,8 +101,21 @@ func attack() -> void :
 	player.take_damage(attack_damage)
 	
 func _physics_process(delta: float) -> void:
-	if state == State.DEAD or player == null or player.is_dead:
+	if state == State.DEAD:
 		return
+	if player == null:
+		player = get_tree().get_first_node_in_group("player") as Player
+	if player == null or player.is_dead:
+		return
+	if stagger_timer > 0.0:
+		stagger_timer -= delta
+		velocity.x = knockback.x
+		velocity.z = knockback.z
+		knockback = knockback.move_toward(Vector3.ZERO, knockback_strength * 6.0 * delta)
+		velocity.y = -2.0 if is_on_floor() else velocity.y + GRAVITY * delta
+		move_and_slide()
+		return
+	attack_timer = max(attack_timer - delta, 0.0)
 	if player == null:
 		player = get_tree().get_first_node_in_group("player") as Player
 	if player == null or player.is_dead:

@@ -49,6 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		refresh_prompt()
 
 func open() -> void:
+	player_inside.inventory.consume_key(required_key)
 	is_open = true
 	prompt.visible = false
 	blocker.queue_free()
