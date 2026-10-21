@@ -85,13 +85,13 @@ func refresh() -> void:
 	
 	var ratio := float(player.health) / float(player.max_health)
 	if ratio > 0.6:
-		status_label.text = "Good"
+		status_label.text = "Bien"
 		status_label.modulate = Color.LIME_GREEN
 	elif ratio > 0.3:
-		status_label.text = "Caution"
+		status_label.text = "Alerta"
 		status_label.modulate = Color.YELLOW
 	else:
-		status_label.text = "Danger"
+		status_label.text = "Peligro"
 		status_label.modulate = Color.RED
 
 func _on_slot_focused(i: int) -> void:

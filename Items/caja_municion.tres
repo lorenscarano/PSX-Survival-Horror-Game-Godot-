@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_u3jv0")
-nombre = "9mm Ammo"
+nombre = "Municion 9mm"
 max_stack = 99
-description = "A little box of 9mm bullets."
+description = "Caja de municiones 9mm."
 metadata/_custom_type_script = "uid://ck3hexymsvk4k"

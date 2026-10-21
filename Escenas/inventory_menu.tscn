@@ -43,9 +43,12 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelCondicion/VBoxContainer" unique_id=311354078]
 layout_mode = 2
 text = "CONDICION"
+horizontal_alignment = 1
 
 [node name="Estado" type="Label" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelCondicion/VBoxContainer" unique_id=1924987738]
 layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PanelEquipo" type="PanelContainer" parent="Fondo/Margen/Raiz/Izquierda/Superior" unique_id=724058805]
 layout_mode = 2
@@ -55,7 +58,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelEquipo/VBoxContainer" unique_id=892259179]
 layout_mode = 2
-text = "                   EQUIPO"
+text = " EQUIPADO"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="IconoEquipo" type="TextureRect" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelEquipo/VBoxContainer" unique_id=1704428227]
@@ -66,6 +70,8 @@ stretch_mode = 5
 
 [node name="CargaEquipo" type="Label" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelEquipo/VBoxContainer" unique_id=962798331]
 layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Relleno" type="Control" parent="Fondo/Margen/Raiz/Izquierda" unique_id=2001760391]
 layout_mode = 2
@@ -75,7 +81,10 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="Descripcion" type="Label" parent="Fondo/Margen/Raiz/Izquierda/PanelDescription" unique_id=1371127234]
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
+autowrap_mode = 2
+max_lines_visible = 10
 
 [node name="Derecha" type="VBoxContainer" parent="Fondo/Margen/Raiz" unique_id=1525600852]
 layout_mode = 2

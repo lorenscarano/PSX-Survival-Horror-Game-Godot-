@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ct8p1od210a04" path="res://Escenas/pickup.tscn" id="6_hhpyo"]
 [ext_resource type="Script" uid="uid://i6tcxms40mpu" path="res://Scripts/end_screen.gd" id="7_24ett"]
 [ext_resource type="Resource" uid="uid://dvl60mm7gqtiq" path="res://Items/caja_municion.tres" id="7_s5h0t"]
-[ext_resource type="Resource" uid="uid://dpge7aeep6fi5" path="res://Items/hierba.tres" id="8_s5h0t"]
+[ext_resource type="Resource" uid="uid://dpge7aeep6fi5" path="res://Items/vendaje.tres" id="8_s5h0t"]
 [ext_resource type="PackedScene" uid="uid://b5hxamah77agt" path="res://FreeModels/low-poly-wooden-desk-chair-psx-style/source/wooden chair and desk and book psx.glb" id="10_al1nu"]
 [ext_resource type="Resource" uid="uid://bfd2a44wkj07g" path="res://Items/llave_roja.tres" id="10_qbtlw"]
 [ext_resource type="PackedScene" uid="uid://38kk0j7woqta" path="res://Escenas/zombie.tscn" id="11_drl7j"]

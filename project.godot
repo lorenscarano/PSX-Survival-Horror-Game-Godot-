@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="RE PSX GAME"
-run/main_scene="uid://cybxxuaq8pve0"
+run/main_scene="uid://3508ffqj4nn1"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 

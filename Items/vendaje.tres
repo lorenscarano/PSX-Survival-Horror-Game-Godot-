@@ -4,9 +4,10 @@
 
 [resource]
 script = ExtResource("1_6r21v")
-nombre = "Hierba"
+nombre = "Vendaje"
 item_type = 1
 amount = 25
 ammo_type = ""
-description = "This can heal you!"
+key_id = ""
+description = "Atiende heridas menores con este vendaje de la mejor calidad."
 metadata/_custom_type_script = "uid://ck3hexymsvk4k"

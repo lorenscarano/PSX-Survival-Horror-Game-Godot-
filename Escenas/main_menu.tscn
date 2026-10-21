@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://3508ffqj4nn1"]
+
+[ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="1_a3sw6"]
+[ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="2_hjcy7"]
+[ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="3_hjcy7"]
+[ext_resource type="Script" uid="uid://dmfen2d8nhp8j" path="res://Scripts/main_menu.gd" id="4_qn7j5"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kddjp"]
+size = Vector2(5, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qn7j5"]
+albedo_texture = ExtResource("2_hjcy7")
+
+[node name="Main_Menu" type="Node3D" unique_id=1912598621]
+
+[node name="Test_Scene" type="Node3D" parent="." unique_id=516858597]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Test_Scene" unique_id=36615404]
+mesh = SubResource("PlaneMesh_kddjp")
+
+[node name="PSXModels" parent="Test_Scene" unique_id=204711105 instance=ExtResource("1_a3sw6")]
+transform = Transform3D(0.93307024, 0, -0.3596942, 0, 1, 0, 0.3596942, 0, 0.93307024, -0.39526093, 0, 0.21361685)
+
+[node name="Skeleton3D" parent="Test_Scene/PSXModels" index="0" unique_id=1864068320]
+bones/0/position = Vector3(-0.0029572858, 0.3442819, 6.273598e-05)
+bones/0/rotation = Quaternion(-0.03647753, -0.3671732, -0.013309765, 0.92934173)
+bones/1/rotation = Quaternion(0.048726197, 0.040352117, -0.0085010985, 0.99796057)
+bones/2/rotation = Quaternion(0.1006345, 0.081079185, -0.018279506, 0.9914458)
+bones/3/rotation = Quaternion(0.10063441, 0.08107919, -0.018279487, 0.9914458)
+bones/4/rotation = Quaternion(-0.035881653, -0.011102662, 0.0021617508, 0.9992921)
+bones/5/rotation = Quaternion(-0.05446893, 0.17692322, -0.012970545, 0.98263067)
+bones/7/rotation = Quaternion(0.5700968, 0.43526766, -0.54863805, 0.42956728)
+bones/8/rotation = Quaternion(0.47077706, -0.09487124, 0.06159205, 0.87497133)
+bones/9/rotation = Quaternion(-0.03109853, 0.058019456, 0.40397513, 0.91239834)
+bones/10/rotation = Quaternion(-0.16326682, 0.1368137, 0.008133723, 0.97701585)
+bones/11/rotation = Quaternion(0.030383207, -0.008193864, 0.062189277, 0.99756825)
+bones/12/rotation = Quaternion(0.19306865, 0.004122876, -0.036109153, 0.9805119)
+bones/13/rotation = Quaternion(0.07380757, 0.008945924, 0.037236392, 0.996537)
+bones/15/rotation = Quaternion(0.614647, -0.39494956, 0.5159309, 0.44725764)
+bones/16/rotation = Quaternion(0.4420346, 0.09544593, 0.17499243, 0.87457025)
+bones/17/rotation = Quaternion(0.03816651, 0.029049423, -0.36029023, 0.9316064)
+bones/18/rotation = Quaternion(0.105094604, -0.062677324, -0.10284514, 0.98714215)
+bones/19/rotation = Quaternion(0.039739896, 0.007501611, 0.009555833, 0.9991362)
+bones/20/rotation = Quaternion(0.094099544, -0.007033788, 0.0532819, 0.9941112)
+bones/21/rotation = Quaternion(-0.1729854, 0.017044436, -0.006977893, 0.9847522)
+bones/23/rotation = Quaternion(0.07999978, 0.20714772, 0.9690707, -0.107666336)
+bones/24/rotation = Quaternion(-0.31462067, 0.1199394, -0.045945436, 0.9404878)
+bones/25/rotation = Quaternion(0.5653878, 0.041914415, -0.07136201, 0.82066274)
+bones/26/rotation = Quaternion(0.295825, 0.17069758, -0.065082364, 0.937611)
+bones/28/rotation = Quaternion(-0.12575026, 0.018703457, 0.98371184, 0.12707575)
+bones/29/rotation = Quaternion(-0.3134731, 0.07423228, -0.015506938, 0.94656414)
+bones/30/rotation = Quaternion(0.6773105, 0.0017097781, 0.13436104, 0.723322)
+bones/31/rotation = Quaternion(0.28715947, -0.1589967, 0.040280227, 0.9437357)
+
+[node name="Body" parent="Test_Scene/PSXModels/Skeleton3D" index="0" unique_id=1479695549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0028110743, 0.002156973, -0.00028711557)
+material_override = SubResource("StandardMaterial3D_qn7j5")
+
+[node name="AnimationPlayer" parent="Test_Scene/PSXModels" index="1" unique_id=164006241]
+libraries/Idle = ExtResource("3_hjcy7")
+
+[node name="Camera_Main_Menu" type="Camera3D" parent="." unique_id=1448179224]
+transform = Transform3D(0.9969539, -0.03810354, -0.068052426, 0.053157058, 0.9704512, 0.23537016, 0.057073116, -0.23827067, 0.96952045, -0.77475536, 0.5347211, 0.85150087)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera_Main_Menu" unique_id=1287258303]
+
+[node name="Main_Menu" type="Control" parent="Camera_Main_Menu/CanvasLayer" unique_id=1474190625]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_qn7j5")
+
+[node name="Titulo" type="Label" parent="Camera_Main_Menu/CanvasLayer/Main_Menu" unique_id=643328028]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 29.0
+offset_right = 345.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 36
+text = "SurvivalHorror
+Prototype"
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="Camera_Main_Menu/CanvasLayer/Main_Menu" unique_id=1935347832]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 236.0
+offset_right = 162.0
+offset_bottom = 289.0
+text = "Play"
+
+[node name="Controles" type="Button" parent="Camera_Main_Menu/CanvasLayer/Main_Menu" unique_id=1733155147]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 308.0
+offset_right = 162.0
+offset_bottom = 361.0
+text = "Controles
+"
+
+[node name="Salir" type="Button" parent="Camera_Main_Menu/CanvasLayer/Main_Menu" unique_id=1112871819]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 377.0
+offset_right = 162.0
+offset_bottom = 430.0
+text = "Salir"
+
+[node name="ControlesPanel" type="Panel" parent="Camera_Main_Menu/CanvasLayer" unique_id=73045261]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = 56.0
+offset_right = -34.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Camera_Main_Menu/CanvasLayer/ControlesPanel" unique_id=1280456749]
+layout_mode = 0
+offset_left = -107.0
+offset_top = 74.0
+offset_right = 133.0
+offset_bottom = 374.0
+scale = Vector2(1, 1.0057119)
+
+[node name="TituloControles" type="Label" parent="Camera_Main_Menu/CanvasLayer/ControlesPanel" unique_id=583869070]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -47.0
+offset_top = 94.0
+offset_right = 47.0
+offset_bottom = 117.0
+grow_horizontal = 2
+text = "CONTROLES"
+
+[node name="ListaControles" type="VBoxContainer" parent="Camera_Main_Menu/CanvasLayer/ControlesPanel" unique_id=473127601]
+layout_mode = 0
+offset_left = -75.0
+offset_top = 129.0
+offset_right = 114.0
+offset_bottom = 336.0
+
+[node name="Movimiento" type="Label" parent="Camera_Main_Menu/CanvasLayer/ControlesPanel/ListaControles" unique_id=1587431965]
+layout_mode = 2
+text = "Moverse: W, S
+Girar: A, D
+Giro Rapido: Q"
+
+[node name="Interaccion" type="Label" parent="Camera_Main_Menu/CanvasLayer/ControlesPanel/ListaControles" unique_id=246371061]
+layout_mode = 2
+text = "Interactuar: E
+Apuntar: Click Derecho
+Disparar: Click Izquierdo"
+
+[node name="Inventario" type="Label" parent="Camera_Main_Menu/CanvasLayer/ControlesPanel/ListaControles" unique_id=361888878]
+layout_mode = 2
+text = "Inventario: Tab
+Usar Objeto: Enter"
+
+[node name="Volver" type="Button" parent="Camera_Main_Menu/CanvasLayer/ControlesPanel" unique_id=308050246]
+layout_mode = 0
+offset_left = -24.0
+offset_top = 342.0
+offset_right = 33.0
+offset_bottom = 373.0
+theme_override_colors/font_color = Color(0.9496195, 0, 0.28231668, 1)
+text = "Volver
+"
+
+[connection signal="pressed" from="Camera_Main_Menu/CanvasLayer/Main_Menu/Play" to="Camera_Main_Menu/CanvasLayer/Main_Menu" method="_on_play_pressed"]
+[connection signal="pressed" from="Camera_Main_Menu/CanvasLayer/Main_Menu/Controles" to="Camera_Main_Menu/CanvasLayer/Main_Menu" method="_on_controles_pressed"]
+[connection signal="pressed" from="Camera_Main_Menu/CanvasLayer/Main_Menu/Salir" to="Camera_Main_Menu/CanvasLayer/Main_Menu" method="_on_salir_pressed"]
+[connection signal="pressed" from="Camera_Main_Menu/CanvasLayer/ControlesPanel/Volver" to="Camera_Main_Menu/CanvasLayer/Main_Menu" method="_on_volver_pressed"]
+
+[editable path="Test_Scene/PSXModels"]

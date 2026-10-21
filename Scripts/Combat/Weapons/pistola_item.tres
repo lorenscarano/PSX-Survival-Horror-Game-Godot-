@@ -5,7 +5,9 @@
 
 [resource]
 script = ExtResource("1_ty4n5")
-nombre = "Pistola"
+nombre = "Pistola Colt 1911"
 item_type = 3
+amount = 1
+key_id = ""
 weapon = ExtResource("2_xdfp8")
 metadata/_custom_type_script = "uid://ck3hexymsvk4k"
