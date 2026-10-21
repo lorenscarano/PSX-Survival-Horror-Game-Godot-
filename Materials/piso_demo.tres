@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://df6opbu5j4ww0"]
+
+[ext_resource type="Texture2D" uid="uid://dc5bivhhsk0j" path="res://FreeModels/Textures/SBS - Tiny Texture Pack 2 - 128x128/128x128/Wood/Wood_12-128x128.png" id="1_g6b64"]
+
+[resource]
+albedo_texture = ExtResource("1_g6b64")
+uv1_scale = Vector3(14, 14, 14)
+texture_filter = 0

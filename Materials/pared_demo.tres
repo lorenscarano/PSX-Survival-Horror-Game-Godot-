@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b16byr0l5nme6"]
+
+[ext_resource type="Texture2D" uid="uid://solxxolsljyx" path="res://FreeModels/Textures/SBS - Tiny Texture Pack 2 - 128x128/128x128/Brick/Brick_08-128x128.png" id="1_gqprm"]
+
+[resource]
+albedo_texture = ExtResource("1_gqprm")
+uv1_scale = Vector3(4, 4, 4)
+texture_filter = 0
