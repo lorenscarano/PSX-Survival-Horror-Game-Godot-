@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://3508ffqj4nn1"]
 
+[ext_resource type="Material" uid="uid://df6opbu5j4ww0" path="res://Materials/piso_demo.tres" id="1_7ms0u"]
 [ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="1_a3sw6"]
 [ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="2_hjcy7"]
 [ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="3_hjcy7"]
 [ext_resource type="Script" uid="uid://dmfen2d8nhp8j" path="res://Scripts/main_menu.gd" id="4_qn7j5"]
+[ext_resource type="PackedScene" uid="uid://bkm6fypr31ete" path="res://Player/re_camera.tscn" id="6_xgkoo"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kddjp"]
 size = Vector2(5, 5)
@@ -11,11 +13,14 @@ size = Vector2(5, 5)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qn7j5"]
 albedo_texture = ExtResource("2_hjcy7")
 
+[sub_resource type="Environment" id="Environment_u5bk5"]
+
 [node name="Main_Menu" type="Node3D" unique_id=1912598621]
 
 [node name="Test_Scene" type="Node3D" parent="." unique_id=516858597]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Test_Scene" unique_id=36615404]
+material_override = ExtResource("1_7ms0u")
 mesh = SubResource("PlaneMesh_kddjp")
 
 [node name="PSXModels" parent="Test_Scene" unique_id=204711105 instance=ExtResource("1_a3sw6")]
@@ -59,8 +64,27 @@ material_override = SubResource("StandardMaterial3D_qn7j5")
 [node name="AnimationPlayer" parent="Test_Scene/PSXModels" index="1" unique_id=164006241]
 libraries/Idle = ExtResource("3_hjcy7")
 
-[node name="Camera_Main_Menu" type="Camera3D" parent="." unique_id=1448179224]
-transform = Transform3D(0.9969539, -0.03810354, -0.068052426, 0.053157058, 0.9704512, 0.23537016, 0.057073116, -0.23827067, 0.96952045, -0.77475536, 0.5347211, 0.85150087)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Test_Scene" unique_id=1416147529]
+environment = SubResource("Environment_u5bk5")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Test_Scene" unique_id=1210736989]
+transform = Transform3D(0.88838863, -0.4590922, 0, 0.4590922, 0.88838863, 0, 0, 0, 1, -1.0393939, 1.1442194, 0.722512)
+light_color = Color(1, 0.21268043, 0.15969583, 1)
+light_energy = 0.198
+spot_range = 9.481
+spot_attenuation = -0.57
+spot_angle = 180.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Test_Scene" unique_id=1142790995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.435, 0, 0)
+light_color = Color(0, 0.9598102, 0.96388537, 1)
+light_energy = 0.266
+light_indirect_energy = 1.294
+light_volumetric_fog_energy = 1.881
+light_specular = 2.75
+
+[node name="Camera_Main_Menu" parent="." unique_id=734178932 instance=ExtResource("6_xgkoo")]
+transform = Transform3D(0.9890287, 0.041495357, -0.14177579, 0, 0.9597374, 0.2808988, 0.14772351, -0.27781698, 0.94920784, -0.77, 0.53200006, 0.90499973)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera_Main_Menu" unique_id=1287258303]
 
@@ -181,3 +205,4 @@ text = "Volver
 [connection signal="pressed" from="Camera_Main_Menu/CanvasLayer/ControlesPanel/Volver" to="Camera_Main_Menu/CanvasLayer/Main_Menu" method="_on_volver_pressed"]
 
 [editable path="Test_Scene/PSXModels"]
+[editable path="Camera_Main_Menu"]
