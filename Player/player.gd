@@ -226,7 +226,7 @@ func fire_ray():
 		dir = dir.rotated(Vector3.UP, randf_range(-s,s))
 		dir = dir.rotated(global_transform.basis.x, randf_range(-s,s)).normalized()
 	var from = get_shoot_origin()
-	var to = from + dir * current_weapon.max_range
+	var to = from + dir * (current_weapon.max_range - 5)
 	var query = PhysicsRayQueryParameters3D.create(from,to)
 	query.exclude = [self]
 	var result = get_world_3d().direct_space_state.intersect_ray(query)
@@ -291,7 +291,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 
-func _unhandled_input(_event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if is_dead:
 		return
 	if Input.is_action_just_pressed("quick_turn") and not is_quick_turning:

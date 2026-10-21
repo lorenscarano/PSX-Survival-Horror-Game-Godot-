@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://blxsq4c2h8j4a" path="res://Player/player.gd" id="1_ul4kv"]
 [ext_resource type="Script" uid="uid://ck3hexymsvk4k" path="res://Scripts/item_data.gd" id="2_oba5i"]
 [ext_resource type="Resource" uid="uid://brmt8cgquespg" path="res://Scripts/Combat/Weapons/pistola_item.tres" id="3_vwnoe"]
-[ext_resource type="Resource" uid="uid://dvl60mm7gqtiq" path="res://Items/caja_municion.tres" id="3_y717v"]
 [ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="4_vwnoe"]
 [ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="5_r84g6"]
 [ext_resource type="AnimationLibrary" uid="uid://c0phqruwnttf6" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Dying.fbx" id="6_m87nl"]
@@ -222,7 +221,7 @@ _data = {
 transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, -0.9999939, 0, 0, 0)
 collision_layer = 5
 script = ExtResource("1_ul4kv")
-starting_items = Array[ExtResource("2_oba5i")]([ExtResource("3_vwnoe"), ExtResource("3_y717v")])
+starting_items = Array[ExtResource("2_oba5i")]([ExtResource("3_vwnoe")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=263656617]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8494277, 0)

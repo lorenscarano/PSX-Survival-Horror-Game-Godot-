@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dcxy6iv0jt8wg" path="res://Escenas/player.tscn" id="1_8foao"]
 [ext_resource type="PackedScene" uid="uid://dfxys8ck46ke3" path="res://FreeModels/ModelCoder/sci_briefing_table.glb" id="2_yu4p2"]
 [ext_resource type="PackedScene" uid="uid://d0b2ubpl0q8qd" path="res://Escenas/hud.tscn" id="4_p5xsa"]
+[ext_resource type="PackedScene" uid="uid://cnhct5q1vrf7h" path="res://Escenas/inventory_menu.tscn" id="4_slopv"]
 [ext_resource type="Script" uid="uid://cj5lp8cjpdqq6" path="res://Scripts/hud.gd" id="5_rn7uw"]
 [ext_resource type="PackedScene" uid="uid://kvbumrmrdbmb" path="res://Escenas/end_screen.tscn" id="6_g5c8g"]
 [ext_resource type="PackedScene" uid="uid://ct8p1od210a04" path="res://Escenas/pickup.tscn" id="6_hhpyo"]
@@ -651,6 +652,11 @@ transform = Transform3D(-5.2185764, 2.3069782, 2.1304004e-08, 3.4613967, 0.68383
 shape = SubResource("BoxShape3D_0ru8o")
 debug_color = Color(0.90600157, 0.13804552, 0.6623147, 1)
 
+[node name="InventoryMenu" parent="." unique_id=1407387221 instance=ExtResource("4_slopv")]
+
+[node name="BtnSalida" parent="InventoryMenu/Fondo/Margen/Raiz/Derecha" parent_id_path=PackedInt32Array(1407387221, 1525600852) index="0" unique_id=445762434]
+text = "SALIR"
+
 [node name="HUD" parent="." unique_id=11680840 instance=ExtResource("4_p5xsa")]
 script = ExtResource("5_rn7uw")
 
@@ -803,6 +809,8 @@ mesh = SubResource("BoxMesh_kddjp")
 [editable path="Camaras/ReCamera8"]
 [editable path="Camaras/ReCamera9"]
 [editable path="Camaras/ReCamera11"]
+[editable path="InventoryMenu"]
+[editable path="HUD"]
 [editable path="Items/PickupAmmo"]
 [editable path="Items/PickupHierba"]
 [editable path="Items/PickupHierba2"]

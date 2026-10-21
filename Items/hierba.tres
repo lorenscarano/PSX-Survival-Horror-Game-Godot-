@@ -8,4 +8,5 @@ nombre = "Hierba"
 item_type = 1
 amount = 25
 ammo_type = ""
+description = "This can heal you!"
 metadata/_custom_type_script = "uid://ck3hexymsvk4k"

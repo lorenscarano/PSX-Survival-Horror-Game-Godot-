@@ -8,4 +8,5 @@ nombre = "Llave"
 item_type = 2
 amount = 1
 ammo_type = ""
+description = "This looks familiar..."
 metadata/_custom_type_script = "uid://ck3hexymsvk4k"
