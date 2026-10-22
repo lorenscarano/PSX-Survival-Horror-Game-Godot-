@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwjm7lthscbbq"
-path.s3tc="res://.godot/imported/9cal.png-cc5f6e6a5d3a4e6777426d8eb4bd6ee2.s3tc.ctex"
+path.s3tc="res://.godot/imported/9Cal.png-ce0e30e7fefe4edaf77efbdb05617d89.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://FreeModels/ammo-boxespsx/textures/9cal.png"
-dest_files=["res://.godot/imported/9cal.png-cc5f6e6a5d3a4e6777426d8eb4bd6ee2.s3tc.ctex"]
+source_file="res://FreeModels/ammo-boxespsx/textures/9Cal.png"
+dest_files=["res://.godot/imported/9Cal.png-ce0e30e7fefe4edaf77efbdb05617d89.s3tc.ctex"]
 
 [params]
 

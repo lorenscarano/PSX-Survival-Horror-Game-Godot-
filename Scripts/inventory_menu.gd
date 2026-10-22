@@ -6,6 +6,7 @@ const COLOR_WEAPON := Color(0.4,1.0,0.4)
 
 var player: Player
 var slot_buttons: Array[Button] = []
+var slot_rows: Array[HBoxContainer] = []
 var is_open := false 
 var last_slot := 0
 
@@ -19,21 +20,36 @@ var last_slot := 0
 func _ready() -> void:
 		process_mode = Node.PROCESS_MODE_ALWAYS
 		visible = false
-		for i in Inventory.SLOT_COUNT:
-			var b := Button.new()
-			b.custom_minimum_size = SLOT_SIZE
-			b.clip_text = true
-			b.expand_icon = true
-			b.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			b.focus_entered.connect(_on_slot_focused.bind(i))
-			b.pressed.connect(_on_slot_pressed.bind(i))
-			var count := Label.new()
-			count.name = "Cantidad"
-			count.position = Vector2(4, SLOT_SIZE.y -18)
-			count.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			b.add_child(count)
-			grid.add_child(b)
-			slot_buttons.append(b)
+		
+		grid.columns = 1
+		
+		for row_index in 4:
+			var row := HBoxContainer.new()
+			row.custom_minimum_size.y = SLOT_SIZE.y
+			row.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			grid.add_child(row)
+			slot_rows.append(row)
+		
+			for col_index in 2:
+				var i := row_index * 2 + col_index
+				
+				var b := Button.new()
+				b.custom_minimum_size = SLOT_SIZE
+				b.clip_text = true
+				b.expand_icon = true
+				b.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				b.focus_entered.connect(_on_slot_focused.bind(i))
+				b.pressed.connect(_on_slot_pressed.bind(i))
+				
+				var count := Label.new()
+				count.name = "Cantidad"
+				count.position = Vector2(4, SLOT_SIZE.y -18)
+				count.mouse_filter = Control.MOUSE_FILTER_IGNORE
+				b.add_child(count)
+				
+				row.add_child(b)
+				slot_buttons.append(b)
+				
 		exit_button.pressed.connect(close)
 
 func _input(event: InputEvent) -> void:
@@ -51,15 +67,24 @@ func refresh() -> void:
 	if not player.inventory.changed.is_connected(refresh):
 		player.inventory.changed.connect(refresh)
 	var inv := player.inventory
+	for b in slot_buttons:
+		b.visible = true
+		b.custom_minimum_size = SLOT_SIZE
 	for i in Inventory.SLOT_COUNT:
 		var b := slot_buttons[i]
 		var count_label := b.get_node("Cantidad") as Label
 		var it := inv.items[i]
 		b.modulate = Color.WHITE
+		b.visible = true
+		b.custom_minimum_size = SLOT_SIZE
+		
 		if it == null:
 			b.icon = null
 			b.text = ""
 			count_label.text = ""
+			if inv.reserved_by[i] != -1:
+				b.visible = false
+			
 			continue
 		b.icon = it.icon
 		b.text = "" if it.icon != null else it.nombre
@@ -75,6 +100,12 @@ func refresh() -> void:
 				count_label.text = ""
 		if i == player.equipped_slot:
 			b.modulate = Color(1.0,1.0,0.6)
+			
+		if it.slot_size == 2:
+			b.custom_minimum_size = Vector2(SLOT_SIZE.x * 2, SLOT_SIZE.y)
+			if i + 1 < Inventory.SLOT_COUNT:
+				slot_buttons[i + 1].visible = false
+				
 	equip_icon.texture = null
 	equip_label.text = "-"
 	if player.equipped_slot >= 0:
