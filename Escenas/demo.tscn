@@ -718,17 +718,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19834423, 0.17105031, 0.098
 [node name="9Cal" parent="Items/PickupHierba2" index="2" unique_id=2003866201]
 visible = false
 
-[node name="PickupHierba4" parent="Items" unique_id=1077633538 instance=ExtResource("10_pf1c6")]
+[node name="PickupLlave" parent="Items" unique_id=1077633538 instance=ExtResource("10_pf1c6")]
 transform = Transform3D(-0.0063552866, 0, 0.9999798, 0, 1, 0, -0.9999798, 0, -0.0063552866, 27.494242, 1.7319171, -7.685581)
 item = ExtResource("13_yjer5")
 
-[node name="CollisionShape3D" parent="Items/PickupHierba4" index="0" unique_id=907386678]
+[node name="CollisionShape3D" parent="Items/PickupLlave" index="0" unique_id=907386678]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.330338, 0.17105031, -0.89597607)
 
-[node name="9Cal" parent="Items/PickupHierba4" index="2" unique_id=2003866201]
+[node name="9Cal" parent="Items/PickupLlave" index="2" unique_id=2003866201]
 visible = false
 
-[node name="MeshInstance3D" parent="Items/PickupHierba4" index="3" unique_id=14542848]
+[node name="MeshInstance3D" parent="Items/PickupLlave" index="3" unique_id=14542848]
 transform = Transform3D(0.17, 0, 0, 0, 0.17, 0, 0, 0, 0.17, 0, -0.24795708, 0)
 mesh = SubResource("BoxMesh_al1nu")
 
@@ -845,6 +845,10 @@ debug_color = Color(0.4446024, 0.5182468, 0.7945734, 0.41960785)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ExitZone" unique_id=48313212]
 mesh = SubResource("BoxMesh_kddjp")
 
+[editable path="Player"]
+[editable path="Player/PSXModels"]
+[editable path="Player/PSXModels/Skeleton3D/BoneAttachment3D/m1897"]
+[editable path="Player/PSXModels/Skeleton3D/BoneAttachment3D/PSX_Colt1911"]
 [editable path="Camaras/ReCamera"]
 [editable path="Camaras/ReCamera2"]
 [editable path="Camaras/ReCamera3"]
@@ -861,7 +865,7 @@ mesh = SubResource("BoxMesh_kddjp")
 [editable path="Items/PickupAmmo"]
 [editable path="Items/PickupHierba"]
 [editable path="Items/PickupHierba2"]
-[editable path="Items/PickupHierba4"]
+[editable path="Items/PickupLlave"]
 [editable path="Items/PickupHierba3"]
 [editable path="wooden chair and desk and book psx"]
 [editable path="Door"]

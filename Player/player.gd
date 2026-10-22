@@ -29,7 +29,12 @@ var equipped_slot := -1
 
 var laser: MeshInstance3D
 var laser_dot: MeshInstance3D
-@onready var muzzle: Marker3D = get_node_or_null("PSXModels/Skeleton3D/BoneAttachment3D/PSX_Colt1911/Muzzle")
+
+@onready var pistol_root: Node3D = get_node_or_null("PSXModels/Skeleton3D/BoneAttachment3D/PSX_Colt1911")
+@onready var shotgun_root: Node3D = get_node_or_null("PSXModels/Skeleton3D/BoneAttachment3D/m1897")
+
+@onready var pistol_muzzle: Marker3D = get_node_or_null("PSXModels/Skeleton3D/BoneAttachment3D/PSX_Colt1911/Muzzle")
+@onready var shotgun_muzzle: Marker3D = get_node_or_null("PSXModels/Skeleton3D/BoneAttachment3D/m1897/Muzzle")
 
 var current_weapon: WeaponData
 var mag_ammo := {} #Balas en cada cargador, segun el nombre del arma
@@ -71,6 +76,25 @@ func register_weapon(w: WeaponData) -> void:
 		mag_ammo[w.nombre] = w.mag_size
 	anim.get_animation(w.aim_animation).loop_mode = Animation.LOOP_LINEAR
 
+func update_weapon_model() -> void:
+	if pistol_root != null:
+		pistol_root.visible = false
+		
+	if shotgun_root != null:
+		shotgun_root.visible = false
+	
+	if  not is_aiming or current_weapon == null:
+		return
+	
+	match current_weapon.nombre:
+		"Pistola":
+			if pistol_root != null:
+				pistol_root.visible = true
+			if gun_model != null:
+				gun_model.visible = true
+		"Escopeta":
+			shotgun_root.visible = is_aiming
+			
 
 func equip_from_slot(slot: int) -> bool:
 	if is_aiming or is_reloading or is_quick_turning:
@@ -85,12 +109,19 @@ func equip_from_slot(slot: int) -> bool:
 	equipped_slot = slot
 	
 	register_weapon(current_weapon)
+	update_weapon_model()
 	return true
 
 func get_shoot_origin() -> Vector3:
-	if muzzle != null:
-		return muzzle.global_position
-	return global_position + Vector3(0, shoot_height,0)
+	if current_weapon != null:
+		match current_weapon.nombre:
+			"Pistola":
+				if pistol_muzzle != null:
+					return pistol_muzzle.global_position
+			"Escopeta":
+				if shotgun_muzzle != null:
+					return shotgun_muzzle.global_position
+	return global_position + Vector3(0, shoot_height, 0)
 	
 func create_laser() -> void:
 	var mat := StandardMaterial3D.new()
@@ -168,8 +199,11 @@ func update_state():
 				state = State.IDLE
 
 func update_animation():
-	if is_aiming:
-		anim.play(current_weapon.aim_animation)
+	if is_aiming and current_weapon != null:
+		if current_weapon.aim_animation != "":
+			anim.play(current_weapon.aim_animation)
+		else:
+			anim.play("Idle/mixamo_com")
 	elif state == State.MOVING and not is_quick_turning:
 		if Input.is_action_pressed("move_backward"):
 			anim.play("Walking Backwards/mixamo_com")
@@ -285,7 +319,7 @@ func _physics_process(delta: float) -> void:
 	handle_shoot()
 	handle_reload()
 	update_animation()
-	gun_model.visible = is_aiming
+	update_weapon_model()
 	update_laser()
 	handle_gravity(delta)
 	move_and_slide()
@@ -347,4 +381,6 @@ func use_slot(slot: int) -> void:
 				health = min(health + it.amount, max_health)
 				inventory.remove_from_slot(slot)
 		ItemData.Type.AMMO:
+			equip_from_slot(slot)
+		ItemData.Type.WEAPON:
 			equip_from_slot(slot)

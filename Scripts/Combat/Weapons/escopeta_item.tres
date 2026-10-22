@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://daktcheh4q4nc"]
+
+[ext_resource type="Script" uid="uid://ck3hexymsvk4k" path="res://Scripts/item_data.gd" id="1_l7nq7"]
+[ext_resource type="Resource" uid="uid://buvtylgg2q007" path="res://Scripts/Combat/Weapons/escopeta.tres" id="2_mxqde"]
+
+[resource]
+script = ExtResource("1_l7nq7")
+nombre = "Escopeta"
+item_type = 3
+amount = 1
+ammo_type = "Cartucho"
+key_id = "0"
+weapon = ExtResource("2_mxqde")
+slot_size = 2
+metadata/_custom_type_script = "uid://ck3hexymsvk4k"

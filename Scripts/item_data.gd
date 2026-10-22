@@ -13,5 +13,6 @@ enum Type { AMMO, HEAL, KEY, WEAPON }
 @export var weapon: WeaponData
 ##Unidades por espacio
 @export var max_stack = 1
+@export_range(1,2) var slot_size :=1
 @export_multiline var description := ""
 @export var icon: Texture2D

@@ -3,15 +3,19 @@
 [ext_resource type="Script" uid="uid://blxsq4c2h8j4a" path="res://Player/player.gd" id="1_ul4kv"]
 [ext_resource type="Script" uid="uid://ck3hexymsvk4k" path="res://Scripts/item_data.gd" id="2_oba5i"]
 [ext_resource type="Resource" uid="uid://brmt8cgquespg" path="res://Scripts/Combat/Weapons/pistola_item.tres" id="3_vwnoe"]
+[ext_resource type="Resource" uid="uid://daktcheh4q4nc" path="res://Scripts/Combat/Weapons/escopeta_item.tres" id="4_r84g6"]
 [ext_resource type="PackedScene" uid="uid://8jyoofdpoef5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/PSXModels.fbx" id="4_vwnoe"]
+[ext_resource type="Resource" uid="uid://dsblrtpl2fub5" path="res://Items/cartuchos.tres" id="5_m87nl"]
 [ext_resource type="Texture2D" uid="uid://bfwoj61e0a43p" path="res://FreeModels/psx-base-male-playstation-character-low-poly/source/PSXModels/BodyTextures/BodyTexture (21).png" id="5_r84g6"]
 [ext_resource type="AnimationLibrary" uid="uid://c0phqruwnttf6" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Dying.fbx" id="6_m87nl"]
 [ext_resource type="PackedScene" uid="uid://bw3cf1tqmf0fy" path="res://FreeModels/psx-colt-1911/source/PSX_Colt1911.glb" id="6_oba5i"]
+[ext_resource type="PackedScene" uid="uid://bonjd8tcdg2xq" path="res://FreeModels/m1897 shotgun/source/m1897.glb" id="6_vwnoe"]
 [ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="7_2eo5y"]
 [ext_resource type="AnimationLibrary" uid="uid://bju8vvt1ihuf5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Pistol Aim.fbx" id="8_4tf0n"]
 [ext_resource type="AnimationLibrary" uid="uid://dsovtww12tpwh" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Running.fbx" id="9_y153w"]
 [ext_resource type="AnimationLibrary" uid="uid://br2vai0qy1a78" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking.fbx" id="10_6hcl0"]
 [ext_resource type="AnimationLibrary" uid="uid://dixxytss15yqm" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking Backwards.fbx" id="11_ldnir"]
+[ext_resource type="AnimationLibrary" uid="uid://cjc34xvp20cm6" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Shotgun Aim.fbx" id="12_r84g6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kddjp"]
 height = 2.201662
@@ -221,7 +225,7 @@ _data = {
 transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, -0.9999939, 0, 0, 0)
 collision_layer = 5
 script = ExtResource("1_ul4kv")
-starting_items = Array[ExtResource("2_oba5i")]([ExtResource("3_vwnoe")])
+starting_items = Array[ExtResource("2_oba5i")]([ExtResource("3_vwnoe"), ExtResource("4_r84g6"), ExtResource("5_m87nl")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=263656617]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8494277, 0)
@@ -232,63 +236,69 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 
 [node name="Skeleton3D" parent="PSXModels" index="0" unique_id=1864068320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5769297, 0)
-bones/0/position = Vector3(-0.0012649603, 0.34728813, 0.0026117193)
-bones/0/rotation = Quaternion(-0.012453017, -0.29006392, -0.02578416, 0.9565788)
+bones/0/position = Vector3(-0.0025167775, 0.3557298, 0.0024326446)
+bones/0/rotation = Quaternion(-0.09594202, -0.35121876, -0.028690485, 0.93092287)
 bones/1/position = Vector3(4.814825e-35, 0.03561081, -0.00011963353)
-bones/1/rotation = Quaternion(0.013280002, 0.013291234, 0.005927329, 0.9998059)
+bones/1/rotation = Quaternion(0.07358901, 0.011436123, -0.0073493, 0.9971961)
 bones/2/position = Vector3(-9.315058e-36, 0.041546177, -1.5091929e-12)
-bones/2/rotation = Quaternion(0.029943649, 0.026636949, 0.00823357, 0.9991627)
+bones/2/rotation = Quaternion(0.13528238, 0.0015340983, -0.008584715, 0.99076873)
 bones/3/position = Vector3(2.686078e-35, 0.047481347, -6.197069e-12)
-bones/3/rotation = Quaternion(0.02994366, 0.026636925, 0.00823357, 0.9991627)
+bones/3/rotation = Quaternion(0.13533758, 0.00096932624, -0.008390506, 0.99076355)
 bones/4/position = Vector3(9.0439964e-35, 0.053416517, 1.4203906e-10)
-bones/4/rotation = Quaternion(0.16086489, 0.040877104, -0.007383528, 0.9861019)
-bones/5/rotation = Quaternion(-0.009623628, -0.017574651, -0.03595822, 0.9991525)
-bones/7/rotation = Quaternion(0.6341216, 0.36408073, -0.42547792, 0.5332013)
+bones/4/rotation = Quaternion(0.011385458, 0.06380666, 0.009857347, 0.9978487)
+bones/5/rotation = Quaternion(-0.028307829, 0.18987817, 0.09089287, 0.9771814)
+bones/7/rotation = Quaternion(0.387813, 0.2730296, -0.61411566, 0.6308074)
 bones/8/position = Vector3(9.7939296e-12, 0.041824114, 5.5306193e-10)
-bones/8/rotation = Quaternion(0.15552501, -0.25733438, 0.30893928, 0.9023013)
+bones/8/rotation = Quaternion(0.40791062, -0.23553401, 0.27660742, 0.8376282)
 bones/9/position = Vector3(8.378375e-11, 0.08391497, -1.6177983e-09)
-bones/9/rotation = Quaternion(-0.04864382, 0.049634583, 0.5777275, 0.8132657)
+bones/9/rotation = Quaternion(-0.024007922, 0.038400646, 0.5204355, 0.8526993)
 bones/10/position = Vector3(2.717564e-11, 0.11590228, 7.7617474e-10)
-bones/10/rotation = Quaternion(-0.4205723, -0.3737575, -0.37638062, 0.7360448)
+bones/10/rotation = Quaternion(-0.11375255, -0.8521274, -0.18936385, 0.47442663)
 bones/11/position = Vector3(3.78462e-11, 0.032353703, 1.1912449e-10)
-bones/11/rotation = Quaternion(0.5221775, 0.10001339, -0.17195709, 0.8293123)
+bones/11/rotation = Quaternion(0.31611463, -0.013307656, -0.019667089, 0.9484238)
 bones/12/position = Vector3(-1.8616914e-12, 0.0073467568, -8.882423e-12)
-bones/12/rotation = Quaternion(0.36200014, 0.011463183, -0.027519623, 0.93170124)
-bones/13/rotation = Quaternion(0.07380757, 0.008945924, 0.037236392, 0.996537)
-bones/15/rotation = Quaternion(0.60673714, -0.38351107, 0.3536486, 0.59976834)
+bones/12/rotation = Quaternion(0.544031, 0.015605805, -0.06350765, 0.8365127)
+bones/13/rotation = Quaternion(0.28127867, 0.012859946, 0.022606721, 0.95927364)
+bones/15/rotation = Quaternion(0.28250217, -0.33877403, 0.6791067, 0.5867186)
 bones/16/position = Vector3(-1.0244665e-11, 0.041824114, 5.530174e-10)
-bones/16/rotation = Quaternion(0.14628704, 0.19209802, -0.63456386, 0.7341847)
+bones/16/rotation = Quaternion(0.46323717, -0.1803567, -0.5429717, 0.67680466)
 bones/17/position = Vector3(4.8672837e-12, 0.083890885, -3.6830927e-11)
-bones/17/rotation = Quaternion(0.01760372, 0.0742291, -0.2963165, 0.9520382)
+bones/17/rotation = Quaternion(-0.013679784, -0.05539403, -0.75357825, 0.65487725)
 bones/18/position = Vector3(-1.584052e-10, 0.11591297, -2.1436874e-09)
-bones/18/rotation = Quaternion(-0.12465776, 0.3033472, 0.10144513, 0.9392283)
+bones/18/rotation = Quaternion(-0.15396999, 0.4037352, 0.2251451, 0.8732702)
 bones/19/position = Vector3(1.0988262e-10, 0.0342389, 1.7898688e-10)
-bones/19/rotation = Quaternion(-0.026299682, 0.04399235, 0.07077762, 0.9961745)
+bones/19/rotation = Quaternion(0.10796972, 0.0008603742, -0.017495956, 0.99399984)
 bones/20/position = Vector3(7.2643905e-12, 0.007164428, 2.1020408e-11)
-bones/20/rotation = Quaternion(0.12603231, -0.010356594, 0.06250153, 0.9900012)
-bones/21/rotation = Quaternion(-0.1729854, 0.017044436, -0.006977893, 0.9847522)
-bones/23/rotation = Quaternion(0.030169822, 0.19319418, 0.9690447, -0.150726)
+bones/20/rotation = Quaternion(0.23124366, -0.01418819, 0.062450238, 0.9707858)
+bones/21/rotation = Quaternion(0.08472582, -0.009569154, 0.00761978, 0.9963293)
+bones/23/rotation = Quaternion(0.39616007, 0.08143805, 0.90230364, -0.14924268)
 bones/24/position = Vector3(1.651882e-10, 0.16195226, 3.7489877e-12)
-bones/24/rotation = Quaternion(-0.2813466, 0.0044614226, -0.020613184, 0.9593745)
+bones/24/rotation = Quaternion(-0.22008586, -0.00742063, -0.00891748, 0.97541153)
 bones/25/position = Vector3(6.605069e-11, 0.14771427, 3.1406508e-10)
-bones/25/rotation = Quaternion(0.5436991, -0.055709567, -0.07190104, 0.834337)
+bones/25/rotation = Quaternion(0.5053317, 0.04273474, -0.036174033, 0.86110693)
 bones/26/position = Vector3(-1.0816209e-12, 0.07687297, 1.4441032e-10)
-bones/26/rotation = Quaternion(0.28704584, 0.15581912, -0.04195922, 0.9442269)
-bones/28/rotation = Quaternion(-0.13191822, 0.06782431, 0.9795727, 0.13577476)
+bones/26/rotation = Quaternion(0.2760833, 0.15302518, -0.044375088, 0.9478356)
+bones/28/rotation = Quaternion(0.036886297, -0.028205372, 0.9978649, 0.045930684)
 bones/29/position = Vector3(6.850001e-11, 0.16195147, -3.8997625e-13)
-bones/29/rotation = Quaternion(-0.2745258, -0.0032681474, 0.01984475, 0.96136945)
+bones/29/rotation = Quaternion(-0.2858605, -0.00043440002, 0.013977921, 0.95816916)
 bones/30/position = Vector3(5.4040883e-11, 0.1477807, -2.0211047e-10)
-bones/30/rotation = Quaternion(0.6340605, -0.038566645, 0.1256407, 0.76203316)
+bones/30/rotation = Quaternion(0.66899437, 0.06994843, 0.0057948367, 0.7399462)
 bones/31/position = Vector3(-3.739805e-11, 0.077877305, 1.0353621e-09)
-bones/31/rotation = Quaternion(0.2851156, -0.15974799, 0.042757403, 0.94411945)
+bones/31/rotation = Quaternion(0.2745105, -0.16010854, 0.04547308, 0.94707)
 
 [node name="Body" parent="PSXModels/Skeleton3D" index="0" unique_id=1479695549]
 material_override = SubResource("StandardMaterial3D_eratf")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="PSXModels/Skeleton3D" index="2" unique_id=153306038]
-transform = Transform3D(0.23256078, 0.061728522, 0.970621, 0.9574145, 0.1610317, -0.23963776, -0.17109318, 0.98501676, -0.021650203, -0.028689183, 0.52845275, 0.18868563)
+transform = Transform3D(-0.09147993, 0.09493518, 0.99127114, 0.9951461, 0.04497323, 0.087530494, -0.036271118, 0.994467, -0.09858842, -0.043813415, 0.5009108, 0.10846151)
 bone_name = "mixamorig_RightHand"
 bone_idx = 18
+
+[node name="m1897" parent="PSXModels/Skeleton3D/BoneAttachment3D" unique_id=661336287 instance=ExtResource("6_vwnoe")]
+transform = Transform3D(0.0069907806, 0.04937956, 0.0035767471, -0.02136548, 0.006267533, -0.044768743, -0.044661492, 0.0047309925, 0.021976642, 0.006442949, 0.094795406, -0.036840655)
+
+[node name="Muzzle" type="Marker3D" parent="PSXModels/Skeleton3D/BoneAttachment3D/m1897" unique_id=1193909137]
+transform = Transform3D(0.9618746, 0.020582864, -0.27271232, -0.01740539, 0.999751, 0.014065228, 0.27293378, -0.008782223, 0.9619929, 0.009167433, 0.35367495, -2.4470978)
 
 [node name="PSX_Colt1911" parent="PSXModels/Skeleton3D/BoneAttachment3D" unique_id=1433631772 instance=ExtResource("6_oba5i")]
 transform = Transform3D(-0.018045798, 0.1991828, 0.0007478604, 0.0007738176, -0.00068081124, 0.19999735, 0.19918272, 0.018048462, -0.0007092268, 0.01310937, 0.05995536, 0.0009730384)
@@ -302,7 +312,10 @@ libraries/Idle = ExtResource("7_2eo5y")
 "libraries/Pistol Aim" = ExtResource("8_4tf0n")
 "libraries/Pistol Fire" = SubResource("AnimationLibrary_fpwri")
 libraries/Running = ExtResource("9_y153w")
+"libraries/Shotgun Aim" = ExtResource("12_r84g6")
 libraries/Walking = ExtResource("10_6hcl0")
 "libraries/Walking Backwards" = ExtResource("11_ldnir")
 
 [editable path="PSXModels"]
+[editable path="PSXModels/Skeleton3D/BoneAttachment3D/m1897"]
+[editable path="PSXModels/Skeleton3D/BoneAttachment3D/PSX_Colt1911"]
