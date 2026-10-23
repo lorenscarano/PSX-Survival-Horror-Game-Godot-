@@ -15,7 +15,14 @@ func _ready() -> void:
 	prompt.visible = false
 	if item != null:
 		prompt.text = "Recoger: %s" % item.nombre
-
+	if item != null and item.world_model != null:
+		var model := item.world_model.instantiate() as Node3D
+		add_child(model)
+		model.position = item.world_offset
+		model.scale = item.world_scale * Vector3.ONE
+		var placeholder := get_node_or_null("MeshInstance3D")
+		if placeholder:
+			placeholder.visible = false
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player:
 		player_inside = body

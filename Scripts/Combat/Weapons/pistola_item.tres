@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://brmt8cgquespg"]
 
 [ext_resource type="Script" uid="uid://ck3hexymsvk4k" path="res://Scripts/item_data.gd" id="1_ty4n5"]
+[ext_resource type="Texture2D" uid="uid://cj7lm1jrmsnjj" path="res://Scripts/Combat/Iconos/pistolavidela.png" id="1_w7i6m"]
 [ext_resource type="Resource" uid="uid://ns6lsxfnwrkg" path="res://Scripts/Combat/Weapons/pistola.tres" id="2_xdfp8"]
 
 [resource]
@@ -10,4 +11,5 @@ item_type = 3
 amount = 1
 key_id = ""
 weapon = ExtResource("2_xdfp8")
+icon = ExtResource("1_w7i6m")
 metadata/_custom_type_script = "uid://ck3hexymsvk4k"

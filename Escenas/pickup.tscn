@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://ct8p1od210a04"]
 
 [ext_resource type="Script" uid="uid://bntjgi4xn2grv" path="res://Scripts/pickup.gd" id="1_0rhox"]
-[ext_resource type="Texture2D" uid="uid://cwjm7lthscbbq" path="res://FreeModels/ammo-boxespsx/textures/9cal.png" id="2_kj3fn"]
+[ext_resource type="Texture2D" uid="uid://cwjm7lthscbbq" path="res://FreeModels/ammo-boxespsx/textures/9Cal.png" id="2_kj3fn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u5bk5"]
 size = Vector3(1.5, 1.5, 1.5)
@@ -46,12 +46,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_f36ok")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kddjp"]
-albedo_color = Color(0.3339613, 0.5348416, 0.18572873, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_u5bk5"]
-material = SubResource("StandardMaterial3D_kddjp")
-
 [node name="Pickup" type="Area3D" unique_id=1289381343]
 script = ExtResource("1_0rhox")
 
@@ -69,7 +63,3 @@ font_size = 22
 [node name="9Cal" type="MeshInstance3D" parent="." unique_id=2003866201]
 transform = Transform3D(-0.027489826, -8.944984, -3.5734004e-07, 0, -3.909983e-07, 8.175, -15.749973, 0.015612476, 6.236973e-10, -0.009646535, 0.019223422, 0.0009108782)
 mesh = SubResource("ArrayMesh_1sdqg")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=14542848]
-transform = Transform3D(0.17, 0, 0, 0, 0.17, 0, 0, 0, 0.17, 0, 0.106143355, 0)
-mesh = SubResource("CylinderMesh_u5bk5")

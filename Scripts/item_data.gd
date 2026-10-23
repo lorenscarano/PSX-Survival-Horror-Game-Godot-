@@ -16,3 +16,6 @@ enum Type { AMMO, HEAL, KEY, WEAPON }
 @export_range(1,2) var slot_size :=1
 @export_multiline var description := ""
 @export var icon: Texture2D
+@export var world_model: PackedScene
+@export var world_offset := Vector3(0,0.3,0)
+@export var world_scale := 1.0
