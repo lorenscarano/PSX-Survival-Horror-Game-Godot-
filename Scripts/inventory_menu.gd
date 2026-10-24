@@ -9,6 +9,12 @@ var slot_buttons: Array[Button] = []
 var slot_rows: Array[HBoxContainer] = []
 var is_open := false 
 var last_slot := 0
+var combining := false
+var combine_source_slot := -1
+var combine_button: Button
+var selected_slot := -1
+var combine_original_parent: Node
+var combine_original_index: int = -1
 
 @onready var grid := find_child("Grilla", true, false) as GridContainer
 @onready var status_label := find_child("Estado", true, false) as Label
@@ -17,6 +23,7 @@ var last_slot := 0
 @onready var description_label := find_child("Descripcion", true, false) as Label
 @onready var exit_button := find_child("BtnSalida", true, false) as Button
 @onready var ecg := find_child("Ecg", true, false) as EcgDisplay
+
 
 func _ready() -> void:
 		process_mode = Node.PROCESS_MODE_ALWAYS
@@ -52,7 +59,17 @@ func _ready() -> void:
 				slot_buttons.append(b)
 				
 		exit_button.pressed.connect(close)
-
+		
+		combine_button = Button.new()
+		combine_button.add_theme_color_override("font_color", COLOR_AMMO)
+		combine_button.name = "BtnCombinar"
+		combine_button.text = "Combinar"
+		combine_button.disabled = true
+		combine_button.pressed.connect(_on_combine_pressed)
+		
+		grid.add_child(combine_button)
+		combine_original_parent = combine_button.get_parent()
+		combine_original_index = combine_button.get_index()
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):
 		if is_open:
@@ -99,9 +116,14 @@ func refresh() -> void:
 				count_label.modulate = COLOR_AMMO
 			_:
 				count_label.text = ""
+		## Arma equipada es amarillo
 		if i == player.equipped_slot:
 			b.modulate = Color(1.0,1.0,0.6)
-			
+		## Combinar es azul
+		if combining and i == combine_source_slot:
+			b.modulate = Color(0.4,0.8,1.0)
+
+		
 		if it.slot_size == 2:
 			b.custom_minimum_size = Vector2(SLOT_SIZE.x * 2, SLOT_SIZE.y)
 			if i + 1 < Inventory.SLOT_COUNT:
@@ -139,12 +161,26 @@ func _on_slot_focused(i: int) -> void:
 		description_label.text = "%s\n%s" % [it.nombre, it.description]
 
 func _on_slot_pressed(i: int) -> void:
+	if combining:
+		_try_combine(i)
+		refresh()
+		if is_open and last_slot >= 0 and last_slot < slot_buttons.size():
+			slot_buttons[last_slot].grab_focus()
+		return
+	
+	last_slot = i
+	selected_slot = i
+	position_combine_button()
 	player.use_slot(i)
 	refresh()
-	_on_slot_focused(i)
+	_on_slot_focused(i)	
+	
+	var it := player.inventory.items[i]
+	combine_button.disabled = it == null or it.item_type != ItemData.Type.AMMO
 
 func close() -> void:
 	is_open = false
+	_cancel_combine()
 	visible = false
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -156,7 +192,7 @@ func open() -> void:
 		player = get_tree().get_first_node_in_group("player") as Player
 	if player == null or player.is_dead:
 		return
-	if player.is_aiming or player.is_reloading or player.is_quick_turning:
+	if player.is_aiming or player.is_quick_turning:
 		return
 	is_open = true
 	visible = true
@@ -164,3 +200,128 @@ func open() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	refresh()
 	slot_buttons[last_slot].grab_focus()
+
+func _on_combine_pressed() -> void:
+	if combining:
+		_cancel_combine()
+		refresh()
+		_on_slot_focused(last_slot)
+		return
+		
+	if player == null:
+		return
+		
+	if selected_slot < 0 or selected_slot >= Inventory.SLOT_COUNT:
+		return
+		
+	var it := player.inventory.items[selected_slot]
+	
+	if it == null or it.item_type != ItemData.Type.AMMO:
+		return
+		
+	combining = true
+	combine_source_slot = selected_slot
+	
+	combine_button.text = "Cancelar"
+	combine_button.disabled = false
+	description_label.text = "Selecciona un arma compatible"
+	
+	refresh()
+
+func _try_combine(target_slot: int) -> bool:
+	if not combining or player == null:
+		return false
+		
+	var inv := player.inventory
+	
+	if target_slot < 0 or target_slot >= Inventory.SLOT_COUNT:
+		return false
+		
+
+	var ammo := inv.items[combine_source_slot]
+	var target := inv.items[target_slot]
+	
+	if ammo == null or ammo.item_type != ItemData.Type.AMMO:
+		_cancel_combine()
+		return false
+		
+	if target == null or target.item_type != ItemData.Type.WEAPON:
+		description_label.text = "Selecciona un arma compatible"
+		return true
+		
+	if target.weapon == null or target.weapon.ammo_type != ammo.ammo_type:
+		description_label.text = "Esta municion no es compatible"
+		return true
+		
+	var weapon: WeaponData = target.weapon
+	if not player.mag_ammo.has(weapon.nombre):
+		player.register_weapon(weapon)
+		
+	var current: int = int(player.mag_ammo[weapon.nombre])
+	var capacity: int = weapon.mag_size
+	var available: int = inv.quantities[combine_source_slot]
+	var space_left: int = maxi(capacity - current, 0)
+	var transfer: int = mini(space_left, available)
+	
+	if transfer <= 0:
+		description_label.text = "Cargador lleno"
+		return true
+		
+	player.mag_ammo[weapon.nombre] = current + transfer
+	inv.remove_from_slot(combine_source_slot, transfer)
+	
+	_cancel_combine()
+	refresh()
+	description_label.text = "Arma cargada"
+	return true
+	
+func _cancel_combine() -> void:
+	combining = false
+	combine_source_slot = -1
+	combine_button.text = "Combinar"
+	restore_combineBtn()
+	selected_slot = -1
+	combine_button.disabled = true
+	if is_open and last_slot >= 0 and last_slot < slot_buttons.size():
+		slot_buttons[last_slot].grab_focus()
+
+
+func position_combine_button() -> void:
+	if combine_button == null:
+		return
+		
+	# Si no hay municion dejarlo abajo
+	if selected_slot < 0 or selected_slot >= Inventory.SLOT_COUNT:
+		if combine_button.get_parent() != grid:
+			combine_button.reparent(grid)
+		return
+		
+	var item := player.inventory.items[selected_slot]
+	 
+	if item == null or item.item_type != ItemData.Type.AMMO:
+		if combine_button.get_parent() != grid:
+			combine_button.reparent(grid)
+		return
+		
+	var row_index := int(selected_slot / 2)
+	var row := slot_rows[row_index]
+	
+	## Movemos el cancelar al item
+	if combine_button.get_parent() != row:
+		combine_button.reparent(row)
+		
+	if selected_slot % 2 == 0:
+		row.move_child(combine_button, row.get_child_count()-1)
+		row.move_child(combine_button, selected_slot % 2)
+	else:
+		row.move_child(combine_button,row.get_child_count() -1 )		
+
+func restore_combineBtn() -> void:
+	if combine_original_parent == null:
+		return
+	if combine_button.get_parent() != combine_original_parent:
+		combine_button.reparent(combine_original_parent)
+	combine_original_parent.move_child(
+		combine_button,
+		combine_original_index
+	)

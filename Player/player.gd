@@ -60,7 +60,6 @@ enum State { IDLE, MOVING, TURNING }
 var state := State.IDLE
 var is_quick_turning := false
 var is_aiming := false
-var is_reloading := false
 var fire_cooldown := 0.0
 
 @onready var anim: AnimationPlayer = $PSXModels/AnimationPlayer
@@ -111,7 +110,7 @@ func update_weapon_model() -> void:
 			
 
 func equip_from_slot(slot: int) -> bool:
-	if is_aiming or is_reloading or is_quick_turning:
+	if is_aiming or is_quick_turning:
 		return false
 		
 	var it := inventory.items[slot]
@@ -254,7 +253,7 @@ func handle_gravity(delta):
 		velocity.y += GRAVITY * delta
 
 func handle_shoot():
-	if not is_aiming or is_reloading or fire_cooldown > 0.0:
+	if not is_aiming or fire_cooldown > 0.0:
 		return
 	if not Input.is_action_just_pressed("shoot"):
 		return
@@ -288,29 +287,6 @@ func fire_ray():
 	if result and result.collider.has_method("take_damage"):
 		result.collider.take_damage(current_weapon.damage)
 
-func handle_reload():
-	if current_weapon == null or is_reloading or is_quick_turning or is_aiming:
-		return
-		
-	if not Input.is_action_just_pressed("reload"):
-		return
-		
-	var w = current_weapon
-	
-	if not mag_ammo.has(w.nombre):
-		register_weapon(w)
-	
-	var reserve = inventory.count_ammo(w.ammo_type)
-	if mag_ammo[w.nombre] >= w.mag_size or reserve <=0 :
-		return
-	is_reloading =true
-	await get_tree().create_timer(w.reload_time).timeout
-	var taken = inventory.take_ammo(w.ammo_type,w.mag_size - mag_ammo[w.nombre])
-	mag_ammo[w.nombre] += taken
-	is_reloading = false
-
-	
-	
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
@@ -318,10 +294,10 @@ func _physics_process(delta: float) -> void:
 	velocity.x = 0
 	velocity.z = 0
 	fire_cooldown = max(fire_cooldown - delta, 0.0)
-	is_aiming = Input.is_action_pressed("aim") and not is_reloading and not is_quick_turning
+	is_aiming = Input.is_action_pressed("aim")and not is_quick_turning
 	
 	
-	if not is_quick_turning and not is_reloading:
+	if not is_quick_turning:
 		if is_aiming:
 			state = State.IDLE
 			handle_turn(delta)
@@ -338,7 +314,6 @@ func _physics_process(delta: float) -> void:
 						handle_walk(delta)
 
 	handle_shoot()
-	handle_reload()
 	update_animation()
 	update_weapon_model()
 	update_laser()
@@ -381,13 +356,20 @@ func die() -> void:
 	get_tree().call_group("end_screen", "show_screen", "Moriste", Color.DARK_RED)
 
 func apply_item(item: ItemData) -> bool:
-	if is_dead or is_aiming or is_reloading or is_quick_turning:
+	if is_dead or is_aiming or is_quick_turning:
 		return false
+	
 	var qty := item.amount if item.item_type == ItemData.Type.AMMO else 1
+	
 	if not inventory.add_item(item,qty):
 		return false
+	
+	if item.item_type ++ ItemData.Type.WEAPON and item.weapon != null:
+		register_weapon(item.weapon)
+	
 	if item.item_type == ItemData.Type.AMMO and item.weapon != null:
 		register_weapon(item.weapon)
+		
 	return true
 
 func has_key(id: String) -> bool:
@@ -415,7 +397,6 @@ func update_movement_sound(delta: float) -> void:
 	if(
 		not is_on_floor()
 		or is_aiming
-		or is_reloading
 		or is_quick_turning
 	):
 		movement_step_timer = 0.0
