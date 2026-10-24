@@ -12,3 +12,4 @@ class_name WeaponData extends Resource
 ##Dispersion
 @export var spread_degrees := 0.0
 @export var aim_animation := "Pistol Aim/mixamo_com"
+@export var shoot_sound: AudioStream

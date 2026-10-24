@@ -20,6 +20,20 @@ var is_dead := false
 var inventory := Inventory.new()
 var equipped_slot := -1
 
+@export_group("Audio Settings")
+
+@export var walking_step_sound: AudioStream
+@export var running_step_sound: AudioStream
+
+@export var walking_step_interval := 0.5
+@export var running_step_interval := 0.28
+@export var backward_step_multiplier := 1.2
+
+var movement_step_timer := 0.0
+
+@onready var shot_sound: AudioStreamPlayer3D = $ShotSound
+@onready var movement_sound: AudioStreamPlayer3D = $MovementSound
+
 @export_group ("Weapon Settings")
 @export var shoot_height := -0.3
 
@@ -250,6 +264,13 @@ func handle_shoot():
 	mag_ammo[current_weapon.nombre] -= 1
 	fire_cooldown = current_weapon.fire_rate
 	play_recoil()
+	
+	## Sonidos
+	if current_weapon.shoot_sound != null:
+		shot_sound.stream = current_weapon.shoot_sound
+		shot_sound.pitch_scale = randf_range(0.95, 1.05)
+		shot_sound.play()
+	
 	for i in current_weapon.pellets:
 		fire_ray()
 
@@ -260,7 +281,7 @@ func fire_ray():
 		dir = dir.rotated(Vector3.UP, randf_range(-s,s))
 		dir = dir.rotated(global_transform.basis.x, randf_range(-s,s)).normalized()
 	var from = get_shoot_origin()
-	var to = from + dir * (current_weapon.max_range - 5)
+	var to = from + dir * (current_weapon.max_range)
 	var query = PhysicsRayQueryParameters3D.create(from,to)
 	query.exclude = [self]
 	var result = get_world_3d().direct_space_state.intersect_ray(query)
@@ -323,6 +344,7 @@ func _physics_process(delta: float) -> void:
 	update_laser()
 	handle_gravity(delta)
 	move_and_slide()
+	update_movement_sound(delta)
 	
 
 func _unhandled_input(_event: InputEvent) -> void:
@@ -384,3 +406,56 @@ func use_slot(slot: int) -> void:
 			equip_from_slot(slot)
 		ItemData.Type.WEAPON:
 			equip_from_slot(slot)
+
+func update_movement_sound(delta: float) -> void:
+	if is_dead:
+		movement_step_timer = 0.0
+		return
+		
+	if(
+		not is_on_floor()
+		or is_aiming
+		or is_reloading
+		or is_quick_turning
+	):
+		movement_step_timer = 0.0
+		return
+	var horizontal_speed := Vector2(velocity.x, velocity.z).length()
+	
+	if horizontal_speed <= 0.1:
+		movement_step_timer = 0.0
+		return
+		
+	movement_step_timer -= delta
+	
+	if movement_step_timer > 0.0:
+		return
+		
+	var is_moving_backward := Input.is_action_pressed("move_backward")
+	var is_running_forward := (
+	Input.is_action_pressed("run")
+	and Input.is_action_pressed("move_forward")
+	and not is_moving_backward)
+	
+	var step_interval: float
+	var selected_sound: AudioStream
+	
+	if is_running_forward:
+		selected_sound = running_step_sound
+		step_interval = running_step_interval
+	else:
+		selected_sound = walking_step_sound
+		step_interval = walking_step_interval
+		
+		if is_moving_backward:
+			step_interval *= backward_step_multiplier
+	
+	#Reiniciamos el tiempo (incluso sin audio)
+	movement_step_timer = step_interval
+	
+	if selected_sound == null:
+		return
+		
+	movement_sound.stream = selected_sound
+	movement_sound.pitch_scale = randf_range(0.9,1.1)
+	movement_sound.play()

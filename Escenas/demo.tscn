@@ -563,7 +563,6 @@ shape = SubResource("BoxShape3D_kddjp")
 
 [node name="Camaras" type="Node3D" parent="." unique_id=231828619]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00021839142, 0.055066586, -0.049315453)
-visible = false
 
 [node name="ReCamera" parent="Camaras" unique_id=734178932 groups=["camera"] instance=ExtResource("3_3synn")]
 transform = Transform3D(-0.8368471, -0.23843946, 0.49278155, 0.002092313, 0.8987618, 0.43843213, -0.5474327, 0.36793154, -0.7516273, -32.448383, 2.5980344, -9.92345)

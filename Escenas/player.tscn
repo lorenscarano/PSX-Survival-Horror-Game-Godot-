@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bw3cf1tqmf0fy" path="res://FreeModels/psx-colt-1911/source/PSX_Colt1911.glb" id="6_oba5i"]
 [ext_resource type="PackedScene" uid="uid://bonjd8tcdg2xq" path="res://FreeModels/m1897 shotgun/source/m1897.glb" id="6_vwnoe"]
 [ext_resource type="AnimationLibrary" uid="uid://du33f5tgxvgtu" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Idle.fbx" id="7_2eo5y"]
+[ext_resource type="AudioStream" uid="uid://cy63s5n3tt0ew" path="res://Audio/Player/run_step.mp3" id="7_4tf0n"]
 [ext_resource type="AnimationLibrary" uid="uid://bju8vvt1ihuf5" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Pistol Aim.fbx" id="8_4tf0n"]
 [ext_resource type="AnimationLibrary" uid="uid://dsovtww12tpwh" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Running.fbx" id="9_y153w"]
 [ext_resource type="AnimationLibrary" uid="uid://br2vai0qy1a78" path="res://FreeModels/psx-base-male-playstation-character-low-poly/Animations/Walking.fbx" id="10_6hcl0"]
@@ -226,6 +227,9 @@ transform = Transform3D(-0.9999939, 0, 0.0034907667, 0, 1, 0, -0.0034907667, 0, 
 collision_layer = 5
 script = ExtResource("1_ul4kv")
 starting_items = Array[ExtResource("2_oba5i")]([ExtResource("3_vwnoe"), ExtResource("4_r84g6"), ExtResource("5_m87nl")])
+walking_step_sound = ExtResource("7_4tf0n")
+running_step_sound = ExtResource("7_4tf0n")
+walking_step_interval = 0.55
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=263656617]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8494277, 0)
@@ -315,6 +319,13 @@ libraries/Running = ExtResource("9_y153w")
 "libraries/Shotgun Aim" = ExtResource("12_r84g6")
 libraries/Walking = ExtResource("10_6hcl0")
 "libraries/Walking Backwards" = ExtResource("11_ldnir")
+
+[node name="ShotSound" type="AudioStreamPlayer3D" parent="." unique_id=88181954]
+max_distance = 50.0
+max_polyphony = 4
+
+[node name="MovementSound" type="AudioStreamPlayer3D" parent="." unique_id=1003741485]
+max_distance = 50.0
 
 [editable path="PSXModels"]
 [editable path="PSXModels/Skeleton3D/BoneAttachment3D/m1897"]

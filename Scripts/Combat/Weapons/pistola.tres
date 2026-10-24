@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://ns6lsxfnwrkg"]
 
 [ext_resource type="Script" uid="uid://ce60wl61rhcac" path="res://Scripts/Combat/weapon_data.gd" id="1_0kmcx"]
+[ext_resource type="AudioStream" uid="uid://7uhmwsj0v3ch" path="res://Audio/Weapons/pistolshot.mp3" id="2_tn5l8"]
 
 [resource]
 script = ExtResource("1_0kmcx")
+shoot_sound = ExtResource("2_tn5l8")
 metadata/_custom_type_script = "uid://ce60wl61rhcac"

@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://buvtylgg2q007"]
 
 [ext_resource type="Script" uid="uid://ce60wl61rhcac" path="res://Scripts/Combat/weapon_data.gd" id="1_iddmx"]
+[ext_resource type="AudioStream" uid="uid://cvmsfcpampwx5" path="res://Audio/Weapons/shotgun shoot.mp3" id="2_okl4p"]
 
 [resource]
 script = ExtResource("1_iddmx")
@@ -14,4 +15,5 @@ ammo_type = "Cartucho"
 pellets = 8
 spread_degrees = 7.0
 aim_animation = "Shotgun Aim/mixamo_com"
+shoot_sound = ExtResource("2_okl4p")
 metadata/_custom_type_script = "uid://ce60wl61rhcac"
