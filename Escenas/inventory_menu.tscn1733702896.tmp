@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://cnhct5q1vrf7h"]
+
+[ext_resource type="Script" uid="uid://da756m77nbcp8" path="res://Scripts/inventory_menu.gd" id="1_fofr0"]
+[ext_resource type="Script" uid="uid://d8diey3y8x23" path="res://Scripts/ecg_display.gd" id="2_wd4gv"]
+
+[sub_resource type="Theme" id="Theme_kddjp"]
+default_font_size = 15
+
+[node name="InventoryMenu" type="CanvasLayer" unique_id=1407387221]
+process_mode = 3
+layer = 9
+script = ExtResource("1_fofr0")
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=1324633269]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kddjp")
+color = Color(0, 0, 0, 0.8627451)
+
+[node name="Margen" type="MarginContainer" parent="Fondo" unique_id=77092470]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Raiz" type="HBoxContainer" parent="Fondo/Margen" unique_id=1267638267]
+layout_mode = 2
+
+[node name="Izquierda" type="VBoxContainer" parent="Fondo/Margen/Raiz" unique_id=1766628134]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Superior" type="HBoxContainer" parent="Fondo/Margen/Raiz/Izquierda" unique_id=1089127954]
+layout_mode = 2
+
+[node name="PanelCondicion" type="PanelContainer" parent="Fondo/Margen/Raiz/Izquierda/Superior" unique_id=1082753404]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelCondicion" unique_id=993755144]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelCondicion/VBoxContainer" unique_id=311354078]
+layout_mode = 2
+text = "CONDICION"
+horizontal_alignment = 1
+
+[node name="Estado" type="Label" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelCondicion/VBoxContainer" unique_id=1924987738]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ecg" type="Control" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelCondicion/VBoxContainer" unique_id=1676188302]
+custom_minimum_size = Vector2(110, 36)
+layout_mode = 2
+script = ExtResource("2_wd4gv")
+
+[node name="PanelEquipo" type="PanelContainer" parent="Fondo/Margen/Raiz/Izquierda/Superior" unique_id=724058805]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelEquipo" unique_id=975821961]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelEquipo/VBoxContainer" unique_id=892259179]
+layout_mode = 2
+text = " EQUIPADO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IconoEquipo" type="TextureRect" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelEquipo/VBoxContainer" unique_id=1704428227]
+custom_minimum_size = Vector2(64, 40)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CargaEquipo" type="Label" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelEquipo/VBoxContainer" unique_id=962798331]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Relleno" type="Control" parent="Fondo/Margen/Raiz/Izquierda" unique_id=2001760391]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelDescription" type="PanelContainer" parent="Fondo/Margen/Raiz/Izquierda" unique_id=401541328]
+layout_mode = 2
+
+[node name="Descripcion" type="Label" parent="Fondo/Margen/Raiz/Izquierda/PanelDescription" unique_id=1371127234]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+autowrap_mode = 2
+max_lines_visible = 10
+
+[node name="Derecha" type="VBoxContainer" parent="Fondo/Margen/Raiz" unique_id=1525600852]
+layout_mode = 2
+
+[node name="BtnSalida" type="Button" parent="Fondo/Margen/Raiz/Derecha" unique_id=445762434]
+layout_mode = 2
+text = "SALIDA"
+
+[node name="Grilla" type="GridContainer" parent="Fondo/Margen/Raiz/Derecha" unique_id=80540607]
+layout_mode = 2
+columns = 2

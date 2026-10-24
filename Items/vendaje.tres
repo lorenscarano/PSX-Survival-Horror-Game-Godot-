@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dpge7aeep6fi5"]
 
 [ext_resource type="Script" uid="uid://ck3hexymsvk4k" path="res://Scripts/item_data.gd" id="1_6r21v"]
+[ext_resource type="Texture2D" uid="uid://b4aruaqemlngo" path="res://Items/Iconos/venda2.png" id="1_ctksg"]
 [ext_resource type="PackedScene" uid="uid://qn8yihq6le8o" path="res://FreeModels/ps1-style-health-bandage/source/Bandage_EmbeddedMedia.fbx" id="2_1vvba"]
 
 [resource]
@@ -11,6 +12,7 @@ amount = 25
 ammo_type = ""
 key_id = ""
 description = "Atiende heridas menores con este vendaje de la mejor calidad."
+icon = ExtResource("1_ctksg")
 world_model = ExtResource("2_1vvba")
 world_scale = 2.0
 metadata/_custom_type_script = "uid://ck3hexymsvk4k"

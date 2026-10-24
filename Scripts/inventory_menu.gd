@@ -16,6 +16,7 @@ var last_slot := 0
 @onready var equip_label := find_child("CargaEquipo", true, false) as Label
 @onready var description_label := find_child("Descripcion", true, false) as Label
 @onready var exit_button := find_child("BtnSalida", true, false) as Button
+@onready var ecg := find_child("Ecg", true, false) as EcgDisplay
 
 func _ready() -> void:
 		process_mode = Node.PROCESS_MODE_ALWAYS
@@ -115,6 +116,8 @@ func refresh() -> void:
 			equip_label.text = "%s\n%d" % [eq.nombre, player.mag_ammo.get(eq.weapon.nombre, 0)]
 	
 	var ratio := float(player.health) / float(player.max_health)
+	if ecg != null:
+		ecg.set_health_ratio(ratio)
 	if ratio > 0.6:
 		status_label.text = "Bien"
 		status_label.modulate = Color.LIME_GREEN

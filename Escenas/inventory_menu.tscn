@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cnhct5q1vrf7h"]
 
 [ext_resource type="Script" uid="uid://da756m77nbcp8" path="res://Scripts/inventory_menu.gd" id="1_fofr0"]
+[ext_resource type="Script" uid="uid://d8diey3y8x23" path="res://Scripts/ecg_display.gd" id="2_wd4gv"]
 
 [sub_resource type="Theme" id="Theme_kddjp"]
 default_font_size = 15
@@ -49,6 +50,11 @@ horizontal_alignment = 1
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Ecg" type="Control" parent="Fondo/Margen/Raiz/Izquierda/Superior/PanelCondicion/VBoxContainer" unique_id=1676188302]
+custom_minimum_size = Vector2(110, 36)
+layout_mode = 2
+script = ExtResource("2_wd4gv")
 
 [node name="PanelEquipo" type="PanelContainer" parent="Fondo/Margen/Raiz/Izquierda/Superior" unique_id=724058805]
 layout_mode = 2
